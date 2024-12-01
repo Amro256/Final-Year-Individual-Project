@@ -5,17 +5,28 @@ using UnityEngine.InputSystem; //Namespace for the next iput system
 public class PlayerMovement : MonoBehaviour
 {
 
-    private PlayerInput playerInput;  //Reference to the player Input 
-
-
-    //Variables for Movement
-    [SerializeField] private Rigidbody rb;
-    [SerializeField] float moveSpeed = 5f;
+    // General Variables
+    private PlayerInput playerInput;  // Reference to the player Input 
+    private Rigidbody rb;
     Vector2 moveDirection;
+    
+    
+    [Header("3D Movement")]
+    [SerializeField] float moveSpeed = 5f;
     [SerializeField] float jumpPower = 5f;
+
+    [Header("2D Movement")]
+    [SerializeField] float moveSpeed2D;
+    [SerializeField] float jumpPower2D;
+
+    [Header("Ground Checks")]
     [SerializeField] bool isGrounded;
     [SerializeField] private LayerMask groundLayer;
-    [SerializeField] GameObject castPostion;
+
+    [Header("Raycast GameObject")]
+    [SerializeField] GameObject rayPostion;
+
+    [SerializeField] private bool is2D = false; //Bool to check if the player is in 2D or not
 
 
     void Awake() //Happens just before start
@@ -45,7 +56,8 @@ public class PlayerMovement : MonoBehaviour
 
     private void FixedUpdate() 
     {
-        rb.position += new Vector3(moveDirection.x, 0, moveDirection.y) * moveSpeed * Time.deltaTime;
+        //rb.position += new Vector3(moveDirection.x, 0, moveDirection.y) * moveSpeed * Time.deltaTime;
+        moveTest();
         
     }
 
@@ -54,8 +66,25 @@ public class PlayerMovement : MonoBehaviour
         //Using "Invoke" Unity events does not take continuous hold into account
 
         moveDirection = context.ReadValue<Vector2>(); //Works but it need to be called every frame to update movement 
-
+    
     }
+
+    private void moveTest()
+    {
+        if(is2D)
+        {
+            //Restrict Movement
+            rb.position += new Vector3(moveDirection.x, 0,0) * moveSpeed * Time.deltaTime; //Restrict controls to the X axis only
+            Debug.Log($"Controls restirct to 2D");
+        }
+        else
+        {
+            //3D controls
+            rb.position += new Vector3(moveDirection.x, 0, moveDirection.y) * moveSpeed * Time.deltaTime;
+            Debug.Log("Full 3D controls!");
+        }
+    }
+
 
     public void OnJump(InputAction.CallbackContext context)
     {
@@ -73,11 +102,22 @@ public class PlayerMovement : MonoBehaviour
     {
         RaycastHit hit;
 
-        isGrounded = Physics.Raycast(castPostion.transform.position, Vector3.down, out hit, 0.5f, groundLayer);
+        isGrounded = Physics.Raycast(rayPostion.transform.position, Vector3.down, out hit, 0.5f, groundLayer);
 
-        Debug.DrawRay(castPostion.transform.position, Vector3.down, Color.red, 0.5f);
+        Debug.DrawRay(rayPostion.transform.position, Vector3.down, Color.red, 0.5f);
         Debug.Log ("Ray fired and hit ground");
 
+    }
+
+    public void Switchto2DMode()
+    {
+        //Call the bool
+        is2D = true;
+    }
+
+    public void SwitchBackTo3D()
+    {
+        is2D = false;
     }
     
 }

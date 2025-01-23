@@ -1,7 +1,10 @@
 using System.Collections;
 using System.Collections.Generic;
+using Cinemachine;
+using UnityEditor.ShaderGraph.Internal;
 using UnityEngine;
 using UnityEngine.InputSystem; //Namespace for the next iput system
+
 public class PlayerMovement : MonoBehaviour
 {
 
@@ -28,7 +31,6 @@ public class PlayerMovement : MonoBehaviour
 
     [SerializeField] private bool is2D = false; //Bool to check if the player is in 2D or not
 
-
     void Awake() //Happens just before start
     {
          rb = GetComponent<Rigidbody>();
@@ -39,7 +41,6 @@ public class PlayerMovement : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {  
-    
     }
 
     void OnDisable() 
@@ -52,6 +53,7 @@ public class PlayerMovement : MonoBehaviour
     void Update()
     {
         CheckGround(); //Call the CheckGround method to keep firing raycast
+
     }
 
     private void FixedUpdate() 

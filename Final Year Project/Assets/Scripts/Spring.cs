@@ -5,21 +5,20 @@ using UnityEngine;
 public class Spring : MonoBehaviour
 {
     //Variables
-
     [SerializeField] float SpringForce = 3f; //Force of the spring
-    [SerializeField] Rigidbody playerRigidBody;
+    private Rigidbody playerRigidBody;
 
 
     void Start()
     {
-        playerRigidBody = FindFirstObjectByType<Rigidbody>(); // Will find a component with a Rigidbody component
+        playerRigidBody = FindObjectOfType<Rigidbody>(); // Will find a component with a Rigidbody component
     }
 
     
-    void OnTriggerEnter(Collider other)
+    void OnCollisionEnter(Collision collision)
     {   
         //Check if the thing being collided with is the player
-        if(other.CompareTag("Player"))
+        if(collision.gameObject.tag == "Player")
         {
             //Debug.Log("Detected Player");
             playerRigidBody.AddForce(Vector3.up * SpringForce, ForceMode.Impulse);

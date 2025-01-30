@@ -23,23 +23,23 @@ public class PerspectiveChange : MonoBehaviour
         mainCamera = Camera.main; //Get the main camera reference
     }
 
-    void OnTriggerEnter(Collider other) 
+    private void OnCollisionEnter(Collision collision) 
     {
-        if(other.CompareTag("Player")&& !isTransitioning) //
+        if(collision.gameObject.CompareTag("Player")&& !isTransitioning) //
         {
             if(Switch2D) //if the switch to 2D is true
             {
-                //Switchto2D();
+                Switchto2D();
                 
                 //Call Coroutine here
-                StartCoroutine(SmoothTransition(true));
+                //StartCoroutine(SmoothTransition(true));
             } 
             else //Switch back to 3D
             {
-                //Switchto3D();
+                Switchto3D();
                 ///Call Coroutine here
                 
-                StartCoroutine(SmoothTransition(false));
+                //StartCoroutine(SmoothTransition(false));
                 
             }
         }
@@ -47,69 +47,69 @@ public class PerspectiveChange : MonoBehaviour
 
     //Use an enumrator for a smooth transition 
 
-    private IEnumerator SmoothTransition(bool to2D)
-    {
-        isTransitioning = true;
-        float elapsedTime = 0f;
+    // private IEnumerator SmoothTransition(bool to2D)
+    // {
+    //     isTransitioning = true;
+    //     float elapsedTime = 0f;
 
-        float startFOV = mainCamera.fieldOfView; // Set the FOV to the cameras default
-        float endFOV = to2D ? 10f : 60f;
+    //     float startFOV = mainCamera.fieldOfView; // Set the FOV to the cameras default
+    //     float endFOV = to2D ? 10f : 60f;
 
-        float startOrthoSize = cam2D.m_Lens.OrthographicSize;
-        float endOrthoSize = to2D ? 10f : 10f;
+    //     float startOrthoSize = cam2D.m_Lens.OrthographicSize;
+    //     float endOrthoSize = to2D ? 10f : 10f;
 
-        if(to2D)
-        {
-            cam2D.Priority = 11;
-            mainCam.Priority = 9;
-            playerMovement.Switchto2DMode();
-        } 
-        else
-        {
-            mainCam.Priority = 11;
-            cam2D.Priority = 9;
-            playerMovement.SwitchBackTo3D();
-        }
+    //     if(to2D)
+    //     {
+    //         cam2D.Priority = 11;
+    //         mainCam.Priority = 9;
+    //         playerMovement.Switchto2DMode();
+    //     } 
+    //     else
+    //     {
+    //         mainCam.Priority = 11;
+    //         cam2D.Priority = 9;
+    //         playerMovement.SwitchBackTo3D();
+    //     }
 
-        while(elapsedTime < transitionDuration)
-        {
-            elapsedTime += Time.deltaTime;
-            float t = elapsedTime / transitionDuration;
-            t = Mathf.SmoothStep(0, 1, t);
+    //     while(elapsedTime < transitionDuration)
+    //     {
+    //         elapsedTime += Time.deltaTime;
+    //         float t = elapsedTime / transitionDuration;
+    //         t = Mathf.SmoothStep(0, 1, t);
 
-            mainCamera.fieldOfView = Mathf.Lerp(startFOV, endFOV, t);
-            cam2D.m_Lens.OrthographicSize = Mathf.Lerp(startOrthoSize, endOrthoSize, t);
+    //         mainCamera.fieldOfView = Mathf.Lerp(startFOV, endFOV, t);
+    //         cam2D.m_Lens.OrthographicSize = Mathf.Lerp(startOrthoSize, endOrthoSize, t);
 
-            yield return null;
-        }
+    //         yield return null;
+    //     }
 
-        mainCamera.fieldOfView = endFOV;
-        cam2D.m_Lens.OrthographicSize = endOrthoSize;
+    //     mainCamera.fieldOfView = endFOV;
+    //     cam2D.m_Lens.OrthographicSize = endOrthoSize;
 
-        is2D = to2D;
-        isTransitioning = false;
-    }
+    //     is2D = to2D;
+    //     isTransitioning = false;
+    // }
 
 
    
     //Method that will switch to 2D
-    // void Switchto2D()
-    // {
-    //     cam2D.Priority = 10;
-    //     mainCam.Priority = 0;
-    //     is2D = true;
-    //     playerMovement.Switchto2DMode();
-    //     Debug.Log("You are now in 2D!");
-    // }
+    void Switchto2D()
+    {
+        cam2D.Priority = 10;
+        mainCam.Priority = 0;
+        is2D = true;
+        playerMovement.Switchto2DMode();
+        Debug.Log("You are now in 2D!");
+    }
 
 
-    // //Method to switch to 3D
-    // void Switchto3D()
-    // {
-    //     mainCam.Priority = 10;
-    //     cam2D.Priority = 0;
-    //     is2D = false;
-    //     playerMovement.SwitchBackTo3D();
-    //     Debug.Log("You are now back in 3D!");
-    // }
+    //Method to switch to 3D
+    void Switchto3D()
+    {
+        mainCam.Priority = 10;
+        cam2D.Priority = 0;
+        is2D = false;
+        playerMovement.SwitchBackTo3D();
+        Debug.Log("You are now back in 3D!");
+    }
 }

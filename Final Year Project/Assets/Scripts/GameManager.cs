@@ -7,12 +7,13 @@ using UnityEngine.SceneManagement;
 public class GameManager : MonoBehaviour
 {
     public static GameManager instance; //Making this script a singleton
+    
 
     //variables
     [SerializeField] Animator transitionAnim; //Reference to the animation
     [SerializeField] string sceneName; //Using a string to change scene so it's not hard coded and it'll be easier to switch while test
    
-    void Awake() 
+    void Awake() //Checks if there is another Game Manager Instance in the scene
     {
         if(instance == null)
         {

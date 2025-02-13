@@ -48,4 +48,16 @@ public class GameManager : MonoBehaviour
         SceneManager.LoadSceneAsync(sceneName);
         
     }
+
+    //
+    public void StartGame()
+    {
+        //Code here to load the level
+    }
+
+    public void QuitGame()
+    {
+        Application.Quit();
+        Debug.Log("Quit game");
+    }
 }

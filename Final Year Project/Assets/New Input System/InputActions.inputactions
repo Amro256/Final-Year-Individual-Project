@@ -817,26 +817,37 @@
             ],
             "bindings": [
                 {
-                    "name": "",
-                    "id": "fab44509-649d-4c96-be94-9a6852c3f77f",
+                    "name": "1D Axis",
+                    "id": "090176fa-f297-46c1-a6ba-d97d4245f4b9",
+                    "path": "1DAxis",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Tab Navigate",
+                    "isComposite": true,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "negative",
+                    "id": "14b0d036-a462-4aac-8553-50dd05bfb3e5",
                     "path": "<Gamepad>/leftShoulder",
                     "interactions": "",
                     "processors": "",
                     "groups": "Gamepad",
                     "action": "Tab Navigate",
                     "isComposite": false,
-                    "isPartOfComposite": false
+                    "isPartOfComposite": true
                 },
                 {
-                    "name": "",
-                    "id": "e45e2a35-c178-4356-ade8-3a299ed81b08",
+                    "name": "positive",
+                    "id": "ba8d0082-d8ab-4575-8674-a4a7d2dcd512",
                     "path": "<Gamepad>/rightShoulder",
                     "interactions": "",
                     "processors": "",
                     "groups": "Gamepad",
                     "action": "Tab Navigate",
                     "isComposite": false,
-                    "isPartOfComposite": false
+                    "isPartOfComposite": true
                 }
             ]
         }

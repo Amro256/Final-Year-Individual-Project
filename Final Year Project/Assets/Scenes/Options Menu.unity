@@ -185,7 +185,7 @@ MonoBehaviour:
     m_NormalColor: {r: 1, g: 1, b: 1, a: 1}
     m_HighlightedColor: {r: 1, g: 1, b: 1, a: 1}
     m_PressedColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 1}
-    m_SelectedColor: {r: 0.101960786, g: 0.99215686, b: 0.45882353, a: 1}
+    m_SelectedColor: {r: 0.5898089, g: 0.96540874, b: 0.43564826, a: 1}
     m_DisabledColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 0.5019608}
     m_ColorMultiplier: 1
     m_FadeDuration: 0.1
@@ -272,15 +272,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 720938b1ee3621643a712c092c31fc9a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  tabSwitchAction:
-    m_Name: Tab Switch
-    m_Type: 0
-    m_ExpectedControlType: 
-    m_Id: 5518405c-d002-478a-9b55-09628cdf50b3
-    m_Processors: 
-    m_Interactions: 
-    m_SingletonActionBindings: []
-    m_Flags: 0
+  tabs:
+  - {fileID: 16652909}
+  - {fileID: 1504117461}
+  - {fileID: 1688835565}
+  currentTab: 0
+  InputActions: {fileID: -944628639613478452, guid: 7c7d75b5e933ee54f908ad155c7a7c23,
+    type: 3}
 --- !u!4 &67042935
 Transform:
   m_ObjectHideFlags: 0
@@ -866,7 +864,8 @@ MonoBehaviour:
     type: 3}
   m_PointAction: {fileID: -7015559349348188261, guid: 7c7d75b5e933ee54f908ad155c7a7c23,
     type: 3}
-  m_MoveAction: {fileID: 0}
+  m_MoveAction: {fileID: -5073567261742242948, guid: 7c7d75b5e933ee54f908ad155c7a7c23,
+    type: 3}
   m_SubmitAction: {fileID: 3934245797371241679, guid: 7c7d75b5e933ee54f908ad155c7a7c23,
     type: 3}
   m_CancelAction: {fileID: 4273266237588028501, guid: 7c7d75b5e933ee54f908ad155c7a7c23,
@@ -1217,7 +1216,7 @@ MonoBehaviour:
     m_NormalColor: {r: 1, g: 1, b: 1, a: 1}
     m_HighlightedColor: {r: 1, g: 1, b: 1, a: 1}
     m_PressedColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 1}
-    m_SelectedColor: {r: 0.101960786, g: 0.99215686, b: 0.45882353, a: 1}
+    m_SelectedColor: {r: 1, g: 1, b: 1, a: 1}
     m_DisabledColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 0.5019608}
     m_ColorMultiplier: 1
     m_FadeDuration: 0.1
@@ -1338,7 +1337,7 @@ MonoBehaviour:
     m_NormalColor: {r: 1, g: 1, b: 1, a: 1}
     m_HighlightedColor: {r: 1, g: 1, b: 1, a: 1}
     m_PressedColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 1}
-    m_SelectedColor: {r: 0.101960786, g: 0.99215686, b: 0.45882353, a: 1}
+    m_SelectedColor: {r: 1, g: 1, b: 1, a: 1}
     m_DisabledColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 0.5019608}
     m_ColorMultiplier: 1
     m_FadeDuration: 0.1

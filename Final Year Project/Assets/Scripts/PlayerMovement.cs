@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using Cinemachine;
 using UnityEditor.ShaderGraph.Internal;
 using UnityEngine;
-using UnityEngine.InputSystem; //Namespace for the next iput system
+using UnityEngine.InputSystem; //Namespace for the next input system
 
 public class PlayerMovement : MonoBehaviour
 {
@@ -12,6 +12,7 @@ public class PlayerMovement : MonoBehaviour
     private PlayerInput playerInput;  // Reference to the player Input 
     private Rigidbody rb;
     Vector2 moveDirection;
+    Vector3 movement;
     
     
     [Header("3D Movement")]
@@ -30,6 +31,7 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] GameObject rayPostion;
 
     [SerializeField] private bool is2D = false; //Bool to check if the player is in 2D or not
+    
 
     void Awake() //Happens just before start
     {
@@ -76,15 +78,17 @@ public class PlayerMovement : MonoBehaviour
         if(is2D)
         {
             //Restrict Movement
-            rb.position += new Vector3(moveDirection.x, 0,0) * moveSpeed * Time.deltaTime; //Restrict controls to the X axis only
-            Debug.Log($"Controls restirct to 2D");
+            movement = new Vector3(moveDirection.x * moveSpeed, rb.velocity.y, 0); //Restrict controls to the X axis only
+            Debug.Log("Controls restirct to 2D");
         }
         else
         {
             //3D controls
-            rb.position += new Vector3(moveDirection.x, 0, moveDirection.y) * moveSpeed * Time.deltaTime;
+            movement = new Vector3(moveDirection.x * moveSpeed, rb.velocity.y, moveDirection.y * moveSpeed); 
             Debug.Log("Full 3D controls!");
         }
+
+        rb.velocity = movement;
     }
 
 
@@ -93,8 +97,14 @@ public class PlayerMovement : MonoBehaviour
 
         if(context.performed && isGrounded) // Will only jump is the player presses the jump button AND if the player is grounded
         {
-            rb.AddForce(new Vector3(0,jumpPower,0 ), ForceMode.Impulse);
-            isGrounded = false;
+            rb.AddForce(Vector3.up * jumpPower, ForceMode.Impulse); //Adds a force on the y axis for jumping 
+            isGrounded = false; //Sets the bool to false as the player is no longer grounded 
+        }
+
+        //Variable Jump Height
+        if(context.canceled && isGrounded)
+        {
+            rb.velocity = new Vector3(rb.velocity.x, rb.velocity.y * 0.5f, rb.velocity.z);
         }
    
     }
@@ -103,7 +113,6 @@ public class PlayerMovement : MonoBehaviour
      void CheckGround() 
     {
         RaycastHit hit;
-
         isGrounded = Physics.Raycast(rayPostion.transform.position, Vector3.down, out hit, 0.5f, groundLayer);
 
         Debug.DrawRay(rayPostion.transform.position, Vector3.down, Color.red, 0.5f);

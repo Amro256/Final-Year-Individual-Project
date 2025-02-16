@@ -1335,6 +1335,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 992ed127fb5e1a546b316bb6e649ba4f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  defaultGravityScale: 1
+  fallingGravityScale: 3.5
   moveSpeed: 5
   jumpPower: 10
   moveSpeed2D: 0

@@ -14,6 +14,9 @@ public class PlayerMovement : MonoBehaviour
     Vector2 moveDirection;
     Vector3 movement;
     
+    [Header("Gravity Scale Settings")]
+    [SerializeField] float defaultGravityScale = 1f; //Default gravity when the player is not moving
+    [SerializeField] float fallingGravityScale = 3.1f; //Gravity when the player is falling after a jump, for a more snappier jump
     
     [Header("3D Movement")]
     [SerializeField] float moveSpeed = 5f;
@@ -30,6 +33,8 @@ public class PlayerMovement : MonoBehaviour
     [Header("Raycast GameObject")]
     [SerializeField] GameObject rayPostion;
 
+    
+
     [SerializeField] private bool is2D = false; //Bool to check if the player is in 2D or not
     
 
@@ -43,6 +48,7 @@ public class PlayerMovement : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {  
+        
     }
 
     void OnDisable() 
@@ -55,13 +61,14 @@ public class PlayerMovement : MonoBehaviour
     void Update()
     {
         CheckGround(); //Call the CheckGround method to keep firing raycast
-
+       
     }
 
     private void FixedUpdate() 
     {
         //rb.position += new Vector3(moveDirection.x, 0, moveDirection.y) * moveSpeed * Time.deltaTime;
         moveTest();
+        ApplyGravity();
         
     }
 
@@ -129,6 +136,18 @@ public class PlayerMovement : MonoBehaviour
     public void SwitchBackTo3D()
     {
         is2D = false;
+    }
+
+    public void ApplyGravity() //Method that will check the player's gravity on the ground and when jumping 
+    {
+        if(!isGrounded) //if the player is not grounded, apply a custom gravity scale for a snappier jump
+        {
+            if(rb.velocity.y < 0)
+            {
+                rb.AddForce(Physics.gravity * (fallingGravityScale -1), ForceMode.Acceleration);
+            }
+        
+        }
     }
     
 }

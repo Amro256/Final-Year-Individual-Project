@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using Cinemachine;
+using UnityEditor.Build.Content;
 using UnityEditor.ShaderGraph.Internal;
 using UnityEngine;
 using UnityEngine.InputSystem; //Namespace for the next input system
@@ -13,6 +14,7 @@ public class PlayerMovement : MonoBehaviour
     private Rigidbody rb;
     Vector2 moveDirection;
     Vector3 movement;
+
     
     [Header("Gravity Scale Settings")]
     [SerializeField] float defaultGravityScale = 1f; //Default gravity when the player is not moving
@@ -21,6 +23,7 @@ public class PlayerMovement : MonoBehaviour
     [Header("3D Movement")]
     [SerializeField] float moveSpeed = 5f;
     [SerializeField] float jumpPower = 5f;
+    [SerializeField] float sprintSpeed = 20f;
 
     [Header("2D Movement")]
     [SerializeField] float moveSpeed2D;
@@ -36,6 +39,9 @@ public class PlayerMovement : MonoBehaviour
     
 
     [SerializeField] private bool is2D = false; //Bool to check if the player is in 2D or not
+    [SerializeField] bool isSprinting = false;
+
+    
     
 
     void Awake() //Happens just before start
@@ -67,31 +73,33 @@ public class PlayerMovement : MonoBehaviour
     private void FixedUpdate() 
     {
         //rb.position += new Vector3(moveDirection.x, 0, moveDirection.y) * moveSpeed * Time.deltaTime;
-        moveTest();
+        playerMovement();
         ApplyGravity();
+        
         
     }
 
     public void OnMove (InputAction.CallbackContext context) //Changed to using the Invoke Unity behaviour, so this method will need to take in a CallBackContext to trigger this method
     {
         //Using "Invoke" Unity events does not take continuous hold into account
-
         moveDirection = context.ReadValue<Vector2>(); //Works but it need to be called every frame to update movement 
-    
     }
 
-    private void moveTest()
+    private void playerMovement()
     {
+        //ternary conditional operator here
+        float currentSpeed = isSprinting ? sprintSpeed : moveSpeed;
+
         if(is2D)
         {
             //Restrict Movement
-            movement = new Vector3(moveDirection.x * moveSpeed, rb.velocity.y, 0); //Restrict controls to the X axis only
+            movement = new Vector3(moveDirection.x * currentSpeed, rb.velocity.y, 0); //Restrict controls to the X axis only
             Debug.Log("Controls restirct to 2D");
         }
         else
         {
             //3D controls
-            movement = new Vector3(moveDirection.x * moveSpeed, rb.velocity.y, moveDirection.y * moveSpeed); 
+            movement = new Vector3(moveDirection.x * currentSpeed, rb.velocity.y, moveDirection.y * currentSpeed); 
             Debug.Log("Full 3D controls!");
         }
 
@@ -114,6 +122,21 @@ public class PlayerMovement : MonoBehaviour
             rb.velocity = new Vector3(rb.velocity.x, rb.velocity.y * 0.5f, rb.velocity.z);
         }
    
+    }
+
+    public void OnSprint(InputAction.CallbackContext context) //When creating new actions, make sure to manaully assign it in the inspector because Unity might not automatically do it
+    {
+        if(context.started && isGrounded) //Check to see if the button has been pressed and if the player is grounded to allow sprinting 
+        {
+            Debug.Log("Player is sprinting");
+            isSprinting = true;
+        } 
+
+        if(context.canceled && isGrounded)
+        {
+            Debug.Log("Player is no longer sprinting");
+            isSprinting = false;
+        }
     }
 
     //Method that fires of a raycast to check if the player is colliding with the Ground layer mask

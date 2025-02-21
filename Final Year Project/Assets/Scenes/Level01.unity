@@ -1318,6 +1318,22 @@ MonoBehaviour:
       m_Calls: []
     m_ActionId: 8a3da248-141a-41db-b4d1-deccc7567d8f
     m_ActionName: Tab Switch/Tab Navigate
+  - m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 1021185701}
+        m_TargetAssemblyTypeName: PlayerMovement, Assembly-CSharp
+        m_MethodName: OnSprint
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_ActionId: f92c6e8e-5370-4e9f-bc74-10f54293d83d
+    m_ActionName: Player/Sprint[/Keyboard/leftShift]
   m_NeverAutoSwitchControlSchemes: 0
   m_DefaultControlScheme: 
   m_DefaultActionMap: Player
@@ -1339,14 +1355,17 @@ MonoBehaviour:
   fallingGravityScale: 3.5
   moveSpeed: 5
   jumpPower: 10
+  sprintSpeed: 10
   moveSpeed2D: 0
   jumpPower2D: 0
+  sprintSpeed2D: 10
   isGrounded: 0
   groundLayer:
     serializedVersion: 2
     m_Bits: 64
   rayPostion: {fileID: 210619533}
   is2D: 0
+  isSprinting: 0
 --- !u!1 &1220395411
 GameObject:
   m_ObjectHideFlags: 0

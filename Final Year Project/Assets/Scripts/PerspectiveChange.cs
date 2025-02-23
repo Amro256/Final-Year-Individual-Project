@@ -33,14 +33,16 @@ public class PerspectiveChange : MonoBehaviour
                 Switchto2D();
 
                 //Call Coroutine here
-                StartCoroutine(GameManager.instance.modeTransition());
+                //StartCoroutine(GameManager.instance.modeTransition());
+
+                StartCoroutine(GameManager.instance.CountdownTransition());
             } 
             else //Switch back to 3D
             {
                 Switchto3D();
                 ///Call Coroutine here
                 
-             StartCoroutine(GameManager.instance.modeTransition());
+             //StartCoroutine(GameManager.instance.modeTransition());
                 
             }
         }

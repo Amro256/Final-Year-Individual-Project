@@ -14,22 +14,14 @@ public class PerspectiveChange : MonoBehaviour
     private bool is2D = false; //Bool to check if the player is in 2D or not
     private bool isTransitioning = false; //Bool to check if transitioning is taking place
     private Camera mainCamera; //Reference to the actual Unity camera
-    PlayerMovement playerMovement; //Reference to the player movement script
+    PlayerMovement playerMovement; //Reference to the player movement script    
 
-
-    //testing mode transition
-    [SerializeField] GameObject test2;
-
-
-    [SerializeField] Animator transitionAnim; //Reference to the animation - make this a seperate script (testing it here for now)
-    
 
     // Start is called before the first frame update
     void Start()
     {
         playerMovement = FindObjectOfType<PlayerMovement>(); //On start, this script will find the 
         mainCamera = Camera.main; //Get the main camera reference
-        test2.SetActive(false);
     }
 
     private void OnCollisionEnter(Collision collision) 
@@ -41,32 +33,19 @@ public class PerspectiveChange : MonoBehaviour
                 Switchto2D();
 
                 //Call Coroutine here
-                StartCoroutine(modeTransition());
+                StartCoroutine(GameManager.instance.modeTransition());
             } 
             else //Switch back to 3D
             {
                 Switchto3D();
                 ///Call Coroutine here
                 
-             StartCoroutine(modeTransition());
+             StartCoroutine(GameManager.instance.modeTransition());
                 
             }
         }
     }
 
-    //Use an enumerator to fake the transition
-
-    private IEnumerator modeTransition()
-    {
-        test2.SetActive(true);
-        yield return new WaitForSeconds(1f);
-        transitionAnim.SetTrigger("IsTransitioning");
-        
-        
-    }
-
-
-   
     //Method that will switch to 2D
     void Switchto2D()
     {

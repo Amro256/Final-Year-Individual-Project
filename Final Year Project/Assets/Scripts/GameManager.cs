@@ -8,10 +8,11 @@ public class GameManager : MonoBehaviour
 {
     public static GameManager instance; //Making this script a singleton
     
-
     //variables
-    [SerializeField] Animator transitionAnim; //Reference to the animation
+    [SerializeField] Animator transitionAnim; //Reference to the animator of the circle 
+    [SerializeField] Animator modeTransitionAnim; // Refernece to the animator of the square
     [SerializeField] string sceneName; //Using a string to change scene so it's not hard coded and it'll be easier to switch while test
+    [SerializeField] GameObject modeTransitionCanvas;
    
     void Awake() //Checks if there is another Game Manager Instance in the scene
     {
@@ -27,7 +28,7 @@ public class GameManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-       
+       modeTransitionCanvas.SetActive(false);
     }
 
     // Update is called once per frame
@@ -41,7 +42,7 @@ public class GameManager : MonoBehaviour
         }
     }
 
-    IEnumerator LoadScene()
+    public IEnumerator LoadScene()
     {
         transitionAnim.SetTrigger("isTrigger");
         yield return new WaitForSeconds(1.5f);
@@ -49,7 +50,15 @@ public class GameManager : MonoBehaviour
         
     }
 
-    //
+    //Use an enumerator to fake the transition
+    public IEnumerator modeTransition()
+    {
+        modeTransitionCanvas.SetActive(true);
+        yield return new WaitForSeconds(1f);
+        modeTransitionAnim.SetTrigger("IsTransitioning");
+        
+    }
+
     public void StartGame()
     {
         //Code here to load the level

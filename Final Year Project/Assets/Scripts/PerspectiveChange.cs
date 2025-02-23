@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using Cinemachine;
+using Unity.VisualScripting;
 
 public class PerspectiveChange : MonoBehaviour
 {
@@ -10,11 +11,17 @@ public class PerspectiveChange : MonoBehaviour
     [SerializeField] CinemachineVirtualCamera cam2D; //Reference to the 2D virtual camera
 
     [SerializeField] public bool Switch2D = true;
-    [SerializeField] private float transitionDuration = 1f;
     private bool is2D = false; //Bool to check if the player is in 2D or not
     private bool isTransitioning = false; //Bool to check if transitioning is taking place
     private Camera mainCamera; //Reference to the actual Unity camera
     PlayerMovement playerMovement; //Reference to the player movement script
+
+
+    //testing mode transition
+    [SerializeField] GameObject test2;
+
+
+    [SerializeField] Animator transitionAnim; //Reference to the animation - make this a seperate script (testing it here for now)
     
 
     // Start is called before the first frame update
@@ -22,6 +29,7 @@ public class PerspectiveChange : MonoBehaviour
     {
         playerMovement = FindObjectOfType<PlayerMovement>(); //On start, this script will find the 
         mainCamera = Camera.main; //Get the main camera reference
+        test2.SetActive(false);
     }
 
     private void OnCollisionEnter(Collision collision) 
@@ -31,65 +39,31 @@ public class PerspectiveChange : MonoBehaviour
             if(Switch2D) //if the switch to 2D is true
             {
                 Switchto2D();
-                
+
                 //Call Coroutine here
-                //StartCoroutine(SmoothTransition(true));
+                StartCoroutine(modeTransition());
             } 
             else //Switch back to 3D
             {
                 Switchto3D();
                 ///Call Coroutine here
                 
-                //StartCoroutine(SmoothTransition(false));
+             StartCoroutine(modeTransition());
                 
             }
         }
     }
 
-    //Use an enumrator for a smooth transition 
+    //Use an enumerator to fake the transition
 
-    // private IEnumerator SmoothTransition(bool to2D)
-    // {
-    //     isTransitioning = true;
-    //     float elapsedTime = 0f;
-
-    //     float startFOV = mainCamera.fieldOfView; // Set the FOV to the cameras default
-    //     float endFOV = to2D ? 10f : 60f;
-
-    //     float startOrthoSize = cam2D.m_Lens.OrthographicSize;
-    //     float endOrthoSize = to2D ? 10f : 10f;
-
-    //     if(to2D)
-    //     {
-    //         cam2D.Priority = 11;
-    //         mainCam.Priority = 9;
-    //         playerMovement.Switchto2DMode();
-    //     } 
-    //     else
-    //     {
-    //         mainCam.Priority = 11;
-    //         cam2D.Priority = 9;
-    //         playerMovement.SwitchBackTo3D();
-    //     }
-
-    //     while(elapsedTime < transitionDuration)
-    //     {
-    //         elapsedTime += Time.deltaTime;
-    //         float t = elapsedTime / transitionDuration;
-    //         t = Mathf.SmoothStep(0, 1, t);
-
-    //         mainCamera.fieldOfView = Mathf.Lerp(startFOV, endFOV, t);
-    //         cam2D.m_Lens.OrthographicSize = Mathf.Lerp(startOrthoSize, endOrthoSize, t);
-
-    //         yield return null;
-    //     }
-
-    //     mainCamera.fieldOfView = endFOV;
-    //     cam2D.m_Lens.OrthographicSize = endOrthoSize;
-
-    //     is2D = to2D;
-    //     isTransitioning = false;
-    // }
+    private IEnumerator modeTransition()
+    {
+        test2.SetActive(true);
+        yield return new WaitForSeconds(1f);
+        transitionAnim.SetTrigger("IsTransitioning");
+        
+        
+    }
 
 
    

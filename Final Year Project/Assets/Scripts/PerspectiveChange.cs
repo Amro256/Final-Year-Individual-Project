@@ -35,7 +35,7 @@ public class PerspectiveChange : MonoBehaviour
                 //Call Coroutine here
                 //StartCoroutine(GameManager.instance.modeTransition());
 
-                StartCoroutine(GameManager.instance.CountdownTransition());
+                StartCoroutine(GameManager.instance.modeTransition());
             } 
             else //Switch back to 3D
             {

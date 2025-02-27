@@ -45,8 +45,7 @@ public class GameManager : MonoBehaviour
         if(Input.GetKeyDown(KeyCode.I)) //for testing purposes 
         {
             //Play animation & load scene in the background 
-           StartCoroutine(LoadScene());
-            
+           
         }
     }
 
@@ -91,7 +90,7 @@ public class GameManager : MonoBehaviour
 
     public void StartGame()
     {
-        //Code here to load the level
+        //StartCoroutine(LoadScene()); - This works but will need some adjuments
     }
 
     public void QuitGame()

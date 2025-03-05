@@ -16,6 +16,10 @@ public class PlayerMovement : MonoBehaviour
     Vector3 movement;
 
     
+     [Header("Camera ")]
+    [SerializeField] Transform cam;
+
+
     [Header("Gravity Scale Settings")]
     [SerializeField] float defaultGravityScale = 1f; //Default gravity when the player is not moving
     [SerializeField] float fallingGravityScale = 3.1f; //Gravity when the player is falling after a jump, for a more snappier jump
@@ -98,12 +102,33 @@ public class PlayerMovement : MonoBehaviour
         }
         else
         {
+            //Camera direction
+            Vector3 cameraForward = Camera.main.transform.forward;
+            cameraForward.y = 0f;
+            cameraForward.Normalize();
+
+
+            Vector3 cameraRight = Camera.main.transform.right;
+            cameraRight.y = 0f;
+            cameraRight.Normalize();
+
+            //Camera relative direction 
+            Vector3 moveDirection3D = (cameraForward * moveDirection.y + cameraRight * moveDirection.x).normalized;
+
             //3D controls
-            movement = new Vector3(moveDirection.x * currentSpeed, rb.velocity.y, moveDirection.y * currentSpeed); 
+            movement = new Vector3(moveDirection3D.x * currentSpeed, rb.velocity.y, moveDirection3D.z * currentSpeed); 
             Debug.Log("Full 3D controls!");
+
+            
+            //Rotate the player based on movement direction - also just good for visualisation
+            if(moveDirection3D.magnitude > 0.1f)
+            {
+                transform.rotation = Quaternion.LookRotation(moveDirection3D);
+            }
         }
 
         rb.velocity = movement;
+        
     }
 
 

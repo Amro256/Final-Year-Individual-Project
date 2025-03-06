@@ -91,7 +91,7 @@ public class PlayerMovement : MonoBehaviour
 
     private void playerMovement()
     {
-        //ternary conditional operator here
+        //ternary conditional operator to check if the player is currently sprinting 
         float currentSpeed = isSprinting ? sprintSpeed : moveSpeed;
 
         if(is2D)
@@ -139,6 +139,7 @@ public class PlayerMovement : MonoBehaviour
         {
             rb.AddForce(Vector3.up * jumpPower, ForceMode.Impulse); //Adds a force on the y axis for jumping 
             isGrounded = false; //Sets the bool to false as the player is no longer grounded 
+
         }
 
         //Variable Jump Height
@@ -151,13 +152,13 @@ public class PlayerMovement : MonoBehaviour
 
     public void OnSprint(InputAction.CallbackContext context) //When creating new actions, make sure to manaully assign it in the inspector because Unity might not automatically do it
     {
-        if(context.started && isGrounded) //Check to see if the button has been pressed and if the player is grounded to allow sprinting 
+        if(context.started && isGrounded) //Check to see if the shift (sprint input ) button has been pressed while the player is grounded, allow the player to sprint 
         {
             Debug.Log("Player is sprinting");
             isSprinting = true;
         } 
 
-        if(context.canceled && isGrounded)
+        if(context.canceled)
         {
             Debug.Log("Player is no longer sprinting");
             isSprinting = false;

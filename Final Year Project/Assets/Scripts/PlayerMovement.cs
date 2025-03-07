@@ -158,7 +158,7 @@ public class PlayerMovement : MonoBehaviour
             isSprinting = true;
         } 
 
-        if(context.canceled)
+        if(context.canceled) //Check to see if sprint has stopped by checking if the key is not being held down
         {
             Debug.Log("Player is no longer sprinting");
             isSprinting = false;

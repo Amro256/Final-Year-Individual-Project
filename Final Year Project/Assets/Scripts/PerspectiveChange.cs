@@ -7,8 +7,9 @@ using Unity.VisualScripting;
 public class PerspectiveChange : MonoBehaviour
 {
     //Variables
-    [SerializeField] CinemachineVirtualCamera mainCam; //Reference to the main 
+    [SerializeField] CinemachineFreeLook mainCam; //Reference to the main 
     [SerializeField] CinemachineVirtualCamera cam2D; //Reference to the 2D virtual camera
+    
 
     [SerializeField] public bool Switch2D = true;
     private bool is2D = false; //Bool to check if the player is in 2D or not

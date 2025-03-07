@@ -11610,7 +11610,7 @@ MonoBehaviour:
   fallingGravityScale: 3.1
   moveSpeed: 5
   jumpPower: 7
-  sprintSpeed: 20
+  sprintSpeed: 12
   moveSpeed2D: 0
   jumpPower2D: 0
   isGrounded: 0

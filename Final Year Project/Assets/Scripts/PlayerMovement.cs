@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using Cinemachine;
+using Unity.Mathematics;
 using UnityEditor.Build.Content;
 using UnityEditor.ShaderGraph.Internal;
 using UnityEngine;
@@ -32,6 +33,9 @@ public class PlayerMovement : MonoBehaviour
     [Header("2D Movement")]
     [SerializeField] float moveSpeed2D;
     [SerializeField] float jumpPower2D;
+    // private Quaternion  test = Quaternion.Euler(0f,90f,0f);
+    // private Quaternion test2 = Quaternion.Euler(0f,-90f,0);
+    private float roationSpeed = 5f;
 
     [Header("Ground Checks")]
     [SerializeField] bool isGrounded;
@@ -99,6 +103,7 @@ public class PlayerMovement : MonoBehaviour
             //Restrict Movement
             movement = new Vector3(moveDirection.x * currentSpeed, rb.velocity.y, 0); //Restrict controls to the X axis only
             Debug.Log("Controls restirct to 2D");
+            Smooth2DRot();
         }
         else
         {
@@ -197,6 +202,22 @@ public class PlayerMovement : MonoBehaviour
             }
         
         }
+    }
+
+    private void Smooth2DRot()
+    {
+        Quaternion targetRotation = transform.rotation;
+
+        if(movement.x > 0)
+        {
+            targetRotation = Quaternion.Euler(0f, 90f,0f); //Facing right 
+        }
+        else if(movement.x < 0) //Facing left
+        {
+            targetRotation = Quaternion.Euler(0f,-90f,0f);
+        }
+
+        transform.rotation = Quaternion.Lerp(transform.rotation, targetRotation, Time.time * roationSpeed);
     }
     
 }

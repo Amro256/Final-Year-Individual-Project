@@ -6,6 +6,7 @@ TagManager:
   tags:
   - Spring
   - Collectable
+  - Platform
   layers:
   - Default
   - TransparentFX

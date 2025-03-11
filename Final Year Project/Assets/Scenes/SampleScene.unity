@@ -17291,12 +17291,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   cam: {fileID: 12392139}
   defaultGravityScale: 1
-  fallingGravityScale: 3.1
+  fallingGravityScale: 4.5
   moveSpeed: 5
   jumpPower: 7
   sprintSpeed: 12
-  moveSpeed2D: 0
-  jumpPower2D: 0
+  Coyotetime: 0.5
+  CoyoteTimer: 0
   isGrounded: 0
   groundLayer:
     serializedVersion: 2

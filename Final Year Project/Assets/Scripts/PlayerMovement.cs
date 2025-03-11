@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using Cinemachine;
@@ -17,7 +18,7 @@ public class PlayerMovement : MonoBehaviour
     Vector3 movement;
 
     
-     [Header("Camera ")]
+    [Header("Camera ")]
     [SerializeField] Transform cam;
 
 
@@ -30,11 +31,13 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] float jumpPower = 5f;
     [SerializeField] float sprintSpeed = 20f;
 
-    [Header("2D Movement")]
-    [SerializeField] float moveSpeed2D;
-    [SerializeField] float jumpPower2D;
-    // private Quaternion  test = Quaternion.Euler(0f,90f,0f);
-    // private Quaternion test2 = Quaternion.Euler(0f,-90f,0);
+    [Header("Coyote Time")]
+    [SerializeField] float Coyotetime = 0.2f; //The amount of seconds the player can jump after leaving a platform
+    [SerializeField] float CoyoteTimer; //Used to track the Coyote
+
+    // [Header("2D Movement")]
+    // [SerializeField] float moveSpeed2D;
+    // [SerializeField] float jumpPower2D; 
     private float roationSpeed = 5f;
 
     [Header("Ground Checks")]
@@ -44,12 +47,12 @@ public class PlayerMovement : MonoBehaviour
     [Header("Raycast GameObject")]
     [SerializeField] GameObject rayPostion;
 
-    
+    private bool jumpUsed = false;
 
+    
     [SerializeField] private bool is2D = false; //Bool to check if the player is in 2D or not
     [SerializeField] bool isSprinting = false;
 
-    
     
 
     void Awake() //Happens just before start
@@ -75,7 +78,7 @@ public class PlayerMovement : MonoBehaviour
     void Update()
     {
         CheckGround(); //Call the CheckGround method to keep firing raycast
-       
+        
     }
 
     private void FixedUpdate() 
@@ -131,28 +134,37 @@ public class PlayerMovement : MonoBehaviour
                 transform.rotation = Quaternion.LookRotation(moveDirection3D);
             }
         }
-
         rb.velocity = movement;
-        
     }
 
 
     public void OnJump(InputAction.CallbackContext context)
     {
 
-        if(context.performed && isGrounded) // Will only jump is the player presses the jump button AND if the player is grounded
+        if(context.performed && CoyoteTimer > 0f && !jumpUsed)  // Will only jump is the player presses the jump button AND if the player is grounded
         {
+            rb.velocity = new Vector3(rb.velocity.x, 0, rb.velocity.z); //Reset's the player y-velocity before jumping
             rb.AddForce(Vector3.up * jumpPower, ForceMode.Impulse); //Adds a force on the y axis for jumping 
-            isGrounded = false; //Sets the bool to false as the player is no longer grounded 
 
+            isGrounded = false; //Sets the bool to false as the player is no longer grounded
+            CoyoteTimer = 0; 
+            jumpUsed = true;
+            
+        }
+
+        if(context.canceled)
+        {
+            jumpUsed = false;
         }
 
         //Variable Jump Height
-        if(context.canceled && isGrounded)
-        {
-            rb.velocity = new Vector3(rb.velocity.x, rb.velocity.y * 0.5f, rb.velocity.z);
-        }
-   
+        // if(context.canceled && isGrounded)
+        // {
+        //     rb.velocity = new Vector3(rb.velocity.x, rb.velocity.y * 0.5f, rb.velocity.z);
+        //     //CoyoteTimer = 0; 
+           
+        // }
+          
     }
 
     public void OnSprint(InputAction.CallbackContext context) //When creating new actions, make sure to manaully assign it in the inspector because Unity might not automatically do it
@@ -179,6 +191,17 @@ public class PlayerMovement : MonoBehaviour
         Debug.DrawRay(rayPostion.transform.position, Vector3.down, Color.red, 0.5f);
         Debug.Log ("Ray fired and hit ground");
 
+        if(isGrounded)
+        {
+            CoyoteTimer = Coyotetime; 
+            jumpUsed = false;
+    
+        }
+        else 
+        {   CoyoteTimer -= Time.deltaTime;
+            CoyoteTimer = MathF.Max(0, (CoyoteTimer));
+        }
+
     }
 
     public void Switchto2DMode()
@@ -200,7 +223,6 @@ public class PlayerMovement : MonoBehaviour
             {
                 rb.AddForce(Physics.gravity * (fallingGravityScale -1), ForceMode.Acceleration);
             }
-        
         }
     }
 

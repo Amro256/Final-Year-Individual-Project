@@ -9,19 +9,15 @@ public class MovingPlatforms : MonoBehaviour
     [SerializeField] Transform point2;
 
     [SerializeField] float platformSpeed = 1.5f; //Platform move speed
-
     private Transform currentTarget; //To store the platform position
+
+    private GameObject player; //Private reference to the player
     void Start()
     {
         //Set the platform current position to the first point on start
         currentTarget = point1;
+        player = FindObjectOfType<GameObject>();
 
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
     }
 
     void FixedUpdate() 
@@ -40,5 +36,14 @@ public class MovingPlatforms : MonoBehaviour
                 currentTarget = point1;
             }
          }
+    }
+
+
+    private void OnTriggerEnter(Collider other) //Parent the player to the platform
+    {
+        if(other.gameObject.CompareTag("Player"))
+        {
+            //transform.parent = player.transform;
+        }
     }
 }

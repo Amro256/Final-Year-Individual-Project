@@ -25,9 +25,9 @@ public class PerspectiveChange : MonoBehaviour
         mainCamera = Camera.main; //Get the main camera reference
     }
 
-    private void OnCollisionEnter(Collision collision) 
+    private void OnTriggerEnter(Collider other) 
     {
-        if(collision.gameObject.CompareTag("Player")&& !isTransitioning) //
+        if(other.gameObject.CompareTag("Player")&& !isTransitioning) //
         {
             if(Switch2D) //if the switch to 2D is true
             {

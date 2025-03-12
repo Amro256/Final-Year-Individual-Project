@@ -5,8 +5,12 @@ using UnityEngine;
 public class Coin : Collectable // The coin script is inheriting behaviour from the Collectable parent class
 {
 
+    void Update()
+    {
+        base.CollectableRotation();
+    }
     //Checks if the collision is with the player and then call the collect function
-    void OnCollisionEnter(Collision other) 
+    void OnTriggerEnter(Collider other) 
     {
         if(other.gameObject.CompareTag("Player"))
         {
@@ -20,4 +24,7 @@ public class Coin : Collectable // The coin script is inheriting behaviour from 
 
         Debug.Log("Coin Collected! Counter: " + value);
     }
+
+
+    
 }

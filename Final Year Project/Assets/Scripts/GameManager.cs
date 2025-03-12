@@ -11,6 +11,7 @@ public class GameManager : MonoBehaviour
     public static GameManager instance; //Making this script a singleton
     private PlayerMovement playerMovement; //Private reference to the player movement script
     private PlayerInput playerinput;
+    private Vector3 lastcheckpoint;
     
     //variables
     [SerializeField] Animator transitionAnim; //Reference to the animator of the circle 
@@ -18,6 +19,8 @@ public class GameManager : MonoBehaviour
     [SerializeField] TMP_Text countDownText;
     [SerializeField] string sceneName; //Using a string to change scene so it's not hard coded and it'll be easier to switch while test
     [SerializeField] GameObject modeTransitionCanvas;
+
+    
    
     void Awake() //Checks if there is another Game Manager Instance in the scene
     {
@@ -39,14 +42,15 @@ public class GameManager : MonoBehaviour
        countDownText.enabled = false;
     }
 
-    // Update is called once per frame
-    void Update()
+
+    public void UpdatePostion(Vector3 position)
     {
-        if(Input.GetKeyDown(KeyCode.I)) //for testing purposes 
-        {
-            //Play animation & load scene in the background 
-           
-        }
+        lastcheckpoint = position;
+    }
+
+    public Vector3 GetLastCheckpoint()
+    {
+        return lastcheckpoint;
     }
 
     public IEnumerator LoadScene()
@@ -90,7 +94,7 @@ public class GameManager : MonoBehaviour
 
     public void StartGame()
     {
-        //StartCoroutine(LoadScene()); - This works but will need some adjuments
+        StartCoroutine(LoadScene()); // - This works but will need some adjuments
     }
 
     public void QuitGame()

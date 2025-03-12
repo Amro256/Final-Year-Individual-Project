@@ -47,13 +47,13 @@ public class PlayerMovement : MonoBehaviour
     [Header("Raycast GameObject")]
     [SerializeField] GameObject rayPostion;
 
-    private bool jumpUsed = false;
+    private bool jumpUsed;
 
     
     [SerializeField] private bool is2D = false; //Bool to check if the player is in 2D or not
     [SerializeField] bool isSprinting = false;
 
-    
+    private Vector3 startPos;
 
     void Awake() //Happens just before start
     {
@@ -65,7 +65,7 @@ public class PlayerMovement : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {  
-        
+        startPos = transform.position;
     }
 
     void OnDisable() 
@@ -88,6 +88,21 @@ public class PlayerMovement : MonoBehaviour
         ApplyGravity();
         
         
+    }
+
+    //Respawn method
+    public void Respawn()
+    {
+        Vector3 respawnpoint = GameManager.instance.GetLastCheckpoint();
+
+        if(respawnpoint != Vector3.zero)
+        {
+            transform.position = respawnpoint;
+        }
+        else
+        {
+            transform.position = startPos;
+        }
     }
 
     public void OnMove (InputAction.CallbackContext context) //Changed to using the Invoke Unity behaviour, so this method will need to take in a CallBackContext to trigger this method
@@ -148,7 +163,7 @@ public class PlayerMovement : MonoBehaviour
 
             isGrounded = false; //Sets the bool to false as the player is no longer grounded
             CoyoteTimer = 0; 
-            jumpUsed = true;
+            StartCoroutine(JumpCoolDown());
             
         }
 
@@ -240,6 +255,13 @@ public class PlayerMovement : MonoBehaviour
         }
 
         transform.rotation = Quaternion.Lerp(transform.rotation, targetRotation, Time.time * roationSpeed);
+    }
+
+    private IEnumerator JumpCoolDown()
+    {
+        jumpUsed = true;
+        yield return new WaitForSeconds(0.5f);
+        jumpUsed = false;
     }
     
 }

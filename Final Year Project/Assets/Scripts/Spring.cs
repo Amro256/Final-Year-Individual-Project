@@ -7,6 +7,7 @@ public class Spring : MonoBehaviour
     //Variables
     [SerializeField] float SpringForce = 3f; //Force of the spring
     private Rigidbody playerRigidBody;
+    [SerializeField] private AudioClip SpringSFX;
 
 
     void Start()
@@ -22,6 +23,7 @@ public class Spring : MonoBehaviour
         {
             //Debug.Log("Detected Player");
             playerRigidBody.AddForce(Vector3.up * SpringForce, ForceMode.Impulse);
+            AudioManager.instance.playSFX(SpringSFX, transform, 0.5f);
         }
 
     }

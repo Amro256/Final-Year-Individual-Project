@@ -993,7 +993,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 779da2da3338b224a824bda8ec19b025, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  mainCam: {fileID: 1781037334}
+  mainCam: {fileID: 0}
   cam2D: {fileID: 517586682}
   Switch2D: 1
 --- !u!65 &825308397
@@ -1348,7 +1348,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 779da2da3338b224a824bda8ec19b025, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  mainCam: {fileID: 1781037334}
+  mainCam: {fileID: 0}
   cam2D: {fileID: 517586682}
   Switch2D: 0
 --- !u!65 &929246480
@@ -1945,13 +1945,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 992ed127fb5e1a546b316bb6e649ba4f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  cam: {fileID: 0}
   defaultGravityScale: 1
   fallingGravityScale: 3.5
   moveSpeed: 5
   jumpPower: 10
   sprintSpeed: 10
-  moveSpeed2D: 0
-  jumpPower2D: 0
+  Coyotetime: 0.2
+  CoyoteTimer: 0
   isGrounded: 0
   groundLayer:
     serializedVersion: 2

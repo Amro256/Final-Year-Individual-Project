@@ -116,6 +116,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   value: 1
   speed: 3
+  CoinSFX: {fileID: 8300000, guid: abadfab9980dc54448b3e61a81290a7b, type: 3}
 --- !u!65 &7783670638008694698
 BoxCollider:
   m_ObjectHideFlags: 0

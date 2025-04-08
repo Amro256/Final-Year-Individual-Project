@@ -120,6 +120,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   SpringForce: 10
+  SpringSFX: {fileID: 8300000, guid: 962af8517479deb4da0c80321941e188, type: 3}
 --- !u!65 &6570826672008349329
 BoxCollider:
   m_ObjectHideFlags: 0

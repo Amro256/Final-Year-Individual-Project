@@ -15,7 +15,8 @@ public class PerspectiveChange : MonoBehaviour
     private bool is2D = false; //Bool to check if the player is in 2D or not
     private bool isTransitioning = false; //Bool to check if transitioning is taking place
     private Camera mainCamera; //Reference to the actual Unity camera
-    PlayerMovement playerMovement; //Reference to the player movement script    
+    PlayerMovement playerMovement; //Reference to the player movement script
+    [SerializeField] private AudioClip SwitchSFX;    
 
 
     // Start is called before the first frame update
@@ -29,25 +30,32 @@ public class PerspectiveChange : MonoBehaviour
     {
         if(other.gameObject.CompareTag("Player")&& !isTransitioning) //
         {
+            isTransitioning = true;
+
             if(Switch2D) //if the switch to 2D is true
             {
                 Switchto2D();
 
                 //Call Coroutine here
                 //StartCoroutine(GameManager.instance.modeTransition());
-
                 StartCoroutine(GameManager.instance.modeTransition());
             } 
             else //Switch back to 3D
             {
                 Switchto3D();
                 ///Call Coroutine here
-                
-             //StartCoroutine(GameManager.instance.modeTransition());
+                StartCoroutine(GameManager.instance.modeTransition());
                 
             }
+
+            //StartCoroutine(GameManager.instance.RandmoiseTransition());
+            //StartCoroutine(GameManager.instance.modeTransition());
+            //StartCoroutine(GameManager.instance.modeTransition());
+
+            AudioManager.instance.playSFX(SwitchSFX, transform, 0.35f);
         }
     }
+
 
     //Method that will switch to 2D
     void Switchto2D()

@@ -3,8 +3,6 @@ using System.Collections;
 using System.Collections.Generic;
 using Cinemachine;
 using Unity.Mathematics;
-using UnityEditor.Build.Content;
-using UnityEditor.ShaderGraph.Internal;
 using UnityEngine;
 using UnityEngine.InputSystem; //Namespace for the next input system
 
@@ -52,6 +50,8 @@ public class PlayerMovement : MonoBehaviour
     
     [SerializeField] private bool is2D = false; //Bool to check if the player is in 2D or not
     [SerializeField] bool isSprinting = false;
+
+    [SerializeField] private AudioClip JumpSFX;
 
     private Vector3 startPos;
 
@@ -159,7 +159,8 @@ public class PlayerMovement : MonoBehaviour
         if(context.performed && CoyoteTimer > 0f && !jumpUsed)  // Will only jump is the player presses the jump button AND if the player is grounded
         {
             rb.velocity = new Vector3(rb.velocity.x, 0, rb.velocity.z); //Reset's the player y-velocity before jumping
-            rb.AddForce(Vector3.up * jumpPower, ForceMode.Impulse); //Adds a force on the y axis for jumping 
+            rb.AddForce(Vector3.up * jumpPower, ForceMode.Impulse); //Adds a force on the y axis for jumping
+            AudioManager.instance.playSFX(JumpSFX, transform, 0.3f); 
 
             isGrounded = false; //Sets the bool to false as the player is no longer grounded
             CoyoteTimer = 0; 
@@ -167,11 +168,7 @@ public class PlayerMovement : MonoBehaviour
             
         }
 
-        if(context.canceled)
-        {
-            jumpUsed = false;
-        }
-
+    
         //Variable Jump Height
         // if(context.canceled && isGrounded)
         // {
@@ -206,7 +203,7 @@ public class PlayerMovement : MonoBehaviour
         Debug.DrawRay(rayPostion.transform.position, Vector3.down, Color.red, 0.5f);
         Debug.Log ("Ray fired and hit ground");
 
-        if(isGrounded)
+        if(isGrounded && rb.velocity.y <= 0.1f)
         {
             CoyoteTimer = Coyotetime; 
             jumpUsed = false;
@@ -260,7 +257,7 @@ public class PlayerMovement : MonoBehaviour
     private IEnumerator JumpCoolDown()
     {
         jumpUsed = true;
-        yield return new WaitForSeconds(0.5f);
+        yield return new WaitForSeconds(0.15f);
         jumpUsed = false;
     }
     

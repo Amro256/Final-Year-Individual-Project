@@ -4,12 +4,12 @@ using System.Collections.Generic;
 using Cinemachine;
 using Unity.Mathematics;
 using UnityEngine;
-using UnityEngine.InputSystem; //Namespace for the next input system
+using UnityEngine.InputSystem; //Namespace for the Input System
 
 public class PlayerMovement : MonoBehaviour
 {
 
-    // General Variables
+    //General Variables
     private PlayerInput playerInput;  // Reference to the player Input 
     private Rigidbody rb;
     Vector2 moveDirection;
@@ -33,9 +33,6 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] float Coyotetime = 0.2f; //The amount of seconds the player can jump after leaving a platform
     [SerializeField] float CoyoteTimer; //Used to track the Coyote
 
-    // [Header("2D Movement")]
-    // [SerializeField] float moveSpeed2D;
-    // [SerializeField] float jumpPower2D; 
     private float roationSpeed = 5f;
 
     [Header("Ground Checks")]
@@ -45,7 +42,8 @@ public class PlayerMovement : MonoBehaviour
     [Header("Raycast GameObject")]
     [SerializeField] GameObject rayPostion;
 
-    private bool jumpUsed;
+    private bool JumpPressed = false;
+    private bool jumpUsed = false;
 
     
     [SerializeField] private bool is2D = false; //Bool to check if the player is in 2D or not
@@ -70,7 +68,7 @@ public class PlayerMovement : MonoBehaviour
 
     void OnDisable() 
     {
-         playerInput.actions.Disable(); //Will disable the controls is the gameObejct is disabled
+         playerInput.actions.Disable(); //Will disable the controls if the gameObejct is disabled
     }
 
     
@@ -78,16 +76,21 @@ public class PlayerMovement : MonoBehaviour
     void Update()
     {
         CheckGround(); //Call the CheckGround method to keep firing raycast
-        
     }
-
     private void FixedUpdate() 
     {
-        //rb.position += new Vector3(moveDirection.x, 0, moveDirection.y) * moveSpeed * Time.deltaTime;
         playerMovement();
         ApplyGravity();
-        
-        
+
+        //Process jump here
+
+        if(JumpPressed && !jumpUsed && (isGrounded || CoyoteTimer > 0f ))
+        {
+            //Call jump method here
+            Jump();
+            JumpPressed = false;
+        }
+        JumpPressed = false;
     }
 
     //Respawn method
@@ -113,7 +116,7 @@ public class PlayerMovement : MonoBehaviour
 
     private void playerMovement()
     {
-        //ternary conditional operator to check if the player is currently sprinting 
+        //Ternary conditional operator to check if the player is currently sprinting 
         float currentSpeed = isSprinting ? sprintSpeed : moveSpeed;
 
         if(is2D)
@@ -155,28 +158,28 @@ public class PlayerMovement : MonoBehaviour
 
     public void OnJump(InputAction.CallbackContext context)
     {
-
-        if(context.performed && CoyoteTimer > 0f && !jumpUsed)  // Will only jump is the player presses the jump button AND if the player is grounded
+        if(context.performed)
         {
-            rb.velocity = new Vector3(rb.velocity.x, 0, rb.velocity.z); //Reset's the player y-velocity before jumping
-            rb.AddForce(Vector3.up * jumpPower, ForceMode.Impulse); //Adds a force on the y axis for jumping
-            AudioManager.instance.playSFX(JumpSFX, transform, 0.3f); 
-
-            isGrounded = false; //Sets the bool to false as the player is no longer grounded
-            CoyoteTimer = 0; 
-            StartCoroutine(JumpCoolDown());
-            
+            JumpPressed = true;
         }
 
-    
-        //Variable Jump Height
-        // if(context.canceled && isGrounded)
+        // if(context.performed && !JumpPressed && (isGrounded || CoyoteTimer > 0f))  // Will only jump is the player presses the jump button AND if the player is grounded
         // {
-        //     rb.velocity = new Vector3(rb.velocity.x, rb.velocity.y * 0.5f, rb.velocity.z);
-        //     //CoyoteTimer = 0; 
-           
-        // }
-          
+            
+            
+        // }      
+    }
+
+    private void Jump()
+    {
+        rb.velocity = new Vector3(rb.velocity.x, 0, rb.velocity.z); //Reset's the player y-velocity before jumping
+        rb.AddForce(Vector3.up * jumpPower, ForceMode.Impulse); //Adds a force on the y axis for jumping
+        AudioManager.instance.playSFX(JumpSFX, transform, 0.3f); 
+
+        isGrounded = false; //Sets the bool to false as the player is no longer grounded
+        jumpUsed = true;
+        CoyoteTimer = 0f; 
+        //StartCoroutine(JumpCoolDown());
     }
 
     public void OnSprint(InputAction.CallbackContext context) //When creating new actions, make sure to manaully assign it in the inspector because Unity might not automatically do it
@@ -254,11 +257,11 @@ public class PlayerMovement : MonoBehaviour
         transform.rotation = Quaternion.Lerp(transform.rotation, targetRotation, Time.time * roationSpeed);
     }
 
-    private IEnumerator JumpCoolDown()
-    {
-        jumpUsed = true;
-        yield return new WaitForSeconds(0.15f);
-        jumpUsed = false;
-    }
+    // private IEnumerator JumpCoolDown()
+    // {
+    //     JumpPressed = true;
+    //     yield return new WaitForSeconds(0.15f);
+    //     JumpPressed = false;
+    // }
     
 }

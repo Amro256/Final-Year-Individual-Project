@@ -43,12 +43,12 @@
                 },
                 {
                     "name": "Sprint",
-                    "type": "Value",
+                    "type": "Button",
                     "id": "f92c6e8e-5370-4e9f-bc74-10f54293d83d",
-                    "expectedControlType": "Digital",
+                    "expectedControlType": "Button",
                     "processors": "",
                     "interactions": "",
-                    "initialStateCheck": true
+                    "initialStateCheck": false
                 }
             ],
             "bindings": [
@@ -309,7 +309,7 @@
                     "name": "",
                     "id": "a7d8f9df-7b05-4ce0-98f4-e5ca8933c5ef",
                     "path": "<Gamepad>/buttonWest",
-                    "interactions": "",
+                    "interactions": "Press",
                     "processors": "",
                     "groups": "Gamepad",
                     "action": "Sprint",
@@ -320,7 +320,7 @@
                     "name": "",
                     "id": "8baa4489-8d7e-4001-b9df-b6ff9ecfde88",
                     "path": "<Keyboard>/leftShift",
-                    "interactions": "",
+                    "interactions": "Press",
                     "processors": "",
                     "groups": "Keyboard&Mouse",
                     "action": "Sprint",

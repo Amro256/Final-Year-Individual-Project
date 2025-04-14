@@ -26,12 +26,18 @@ public class PlayerMovement : MonoBehaviour
     
     [Header("3D Movement")]
     [SerializeField] float moveSpeed = 5f;
+    [SerializeField] float sprintSpeed = 10f;
     [SerializeField] float jumpPower = 5f;
-    [SerializeField] float sprintSpeed = 20f;
+   
+
+    [SerializeField] float acceleration = 5f;
+    [SerializeField] float deceleration = 12f;
+    private float currentSpeed = 0f;
+    private float targetSpeed = 0f;
 
     [Header("Coyote Time")]
-    [SerializeField] float Coyotetime = 0.2f; //The amount of seconds the player can jump after leaving a platform
-    [SerializeField] float CoyoteTimer; //Used to track the Coyote
+    private float Coyotetime = 0.5f; //The amount of seconds the player can jump after leaving a platform
+    private float CoyoteTimer; //Used to track the Coyote
 
     private float roationSpeed = 5f;
 
@@ -40,12 +46,11 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] private LayerMask groundLayer;
 
     [Header("Raycast GameObject")]
-    [SerializeField] GameObject rayPostion;
+    [SerializeField] private GameObject rayPostion;
 
     private bool JumpPressed = false;
     private bool jumpUsed = false;
 
-    
     [SerializeField] private bool is2D = false; //Bool to check if the player is in 2D or not
     [SerializeField] bool isSprinting = false;
 
@@ -117,7 +122,10 @@ public class PlayerMovement : MonoBehaviour
     private void playerMovement()
     {
         //Ternary conditional operator to check if the player is currently sprinting 
-        float currentSpeed = isSprinting ? sprintSpeed : moveSpeed;
+         targetSpeed = isSprinting ? sprintSpeed : moveSpeed;
+
+         float speedChangeRate = (targetSpeed > currentSpeed) ? acceleration : deceleration;
+         currentSpeed = Mathf.MoveTowards(currentSpeed, targetSpeed, speedChangeRate * Time.fixedDeltaTime);
 
         if(is2D)
         {
@@ -149,10 +157,12 @@ public class PlayerMovement : MonoBehaviour
             //Rotate the player based on movement direction - also just good for visualisation
             if(moveDirection3D.magnitude > 0.1f)
             {
+                
                 transform.rotation = Quaternion.LookRotation(moveDirection3D);
             }
         }
-        rb.velocity = movement;
+         rb.velocity = movement;
+                
     }
 
 
@@ -161,13 +171,7 @@ public class PlayerMovement : MonoBehaviour
         if(context.performed)
         {
             JumpPressed = true;
-        }
-
-        // if(context.performed && !JumpPressed && (isGrounded || CoyoteTimer > 0f))  // Will only jump is the player presses the jump button AND if the player is grounded
-        // {
-            
-            
-        // }      
+        }    
     }
 
     private void Jump()
@@ -184,7 +188,7 @@ public class PlayerMovement : MonoBehaviour
 
     public void OnSprint(InputAction.CallbackContext context) //When creating new actions, make sure to manaully assign it in the inspector because Unity might not automatically do it
     {
-        if(context.started && isGrounded) //Check to see if the shift (sprint input ) button has been pressed while the player is grounded, allow the player to sprint 
+        if(context.performed && isGrounded) //Check to see if the shift (sprint input ) button has been pressed while the player is grounded, allow the player to sprint 
         {
             Debug.Log("Player is sprinting");
             isSprinting = true;
@@ -203,8 +207,8 @@ public class PlayerMovement : MonoBehaviour
         RaycastHit hit;
         isGrounded = Physics.Raycast(rayPostion.transform.position, Vector3.down, out hit, 0.5f, groundLayer);
 
-        Debug.DrawRay(rayPostion.transform.position, Vector3.down, Color.red, 0.5f);
-        Debug.Log ("Ray fired and hit ground");
+        //Debug.DrawRay(rayPostion.transform.position, Vector3.down, Color.red, 0.5f);
+        //Debug.Log ("Ray fired and hit ground");
 
         if(isGrounded && rb.velocity.y <= 0.1f)
         {
@@ -256,12 +260,5 @@ public class PlayerMovement : MonoBehaviour
 
         transform.rotation = Quaternion.Lerp(transform.rotation, targetRotation, Time.time * roationSpeed);
     }
-
-    // private IEnumerator JumpCoolDown()
-    // {
-    //     JumpPressed = true;
-    //     yield return new WaitForSeconds(0.15f);
-    //     JumpPressed = false;
-    // }
     
 }

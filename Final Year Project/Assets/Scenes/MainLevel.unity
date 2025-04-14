@@ -193,7 +193,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8910406}
   serializedVersion: 2
-  m_LocalRotation: {x: 0.122183114, y: 0.0015928319, z: -0.00019608658, w: 0.9925063}
+  m_LocalRotation: {x: 0.12218311, y: 0.00159283, z: -0.00019608633, w: 0.9925063}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -1160,7 +1160,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 94111046}
   serializedVersion: 2
-  m_LocalRotation: {x: 0.06496298, y: 0.0016014935, z: -0.00010425815, w: 0.9978864}
+  m_LocalRotation: {x: 0.06496302, y: 0.0016014642, z: -0.0001042563, w: 0.9978864}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -2505,7 +2505,7 @@ PrefabInstance:
     - target: {fileID: -8679921383154817045, guid: 28cdedba5956ea443a65eecd78f7e1b6,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: 96.53912
+      value: 94.26
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 28cdedba5956ea443a65eecd78f7e1b6,
         type: 3}
@@ -8026,7 +8026,7 @@ PrefabInstance:
     - target: {fileID: -8679921383154817045, guid: 28cdedba5956ea443a65eecd78f7e1b6,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: 104.98912
+      value: 103.26
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 28cdedba5956ea443a65eecd78f7e1b6,
         type: 3}
@@ -9036,10 +9036,10 @@ MonoBehaviour:
   defaultGravityScale: 1
   fallingGravityScale: 4.5
   moveSpeed: 5
+  sprintSpeed: 10
   jumpPower: 7
-  sprintSpeed: 12
-  Coyotetime: 0.5
-  CoyoteTimer: 0
+  acceleration: 10
+  deceleration: 10
   isGrounded: 0
   groundLayer:
     serializedVersion: 2
@@ -16333,18 +16333,18 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_TrackedObjectOffset: {x: 0, y: 0, z: 0}
-  m_LookaheadTime: 0
-  m_LookaheadSmoothing: 0
+  m_LookaheadTime: 0.5
+  m_LookaheadSmoothing: 3
   m_LookaheadIgnoreY: 0
   m_XDamping: 4
-  m_YDamping: 1
+  m_YDamping: 3
   m_ZDamping: 1
   m_TargetMovementOnly: 1
   m_ScreenX: 0.5
   m_ScreenY: 0.5
   m_CameraDistance: 11.9
-  m_DeadZoneWidth: 0.25
-  m_DeadZoneHeight: 0.09779009
+  m_DeadZoneWidth: 0.17
+  m_DeadZoneHeight: 0.11
   m_DeadZoneDepth: 0
   m_UnlimitedSoftZone: 0
   m_SoftZoneWidth: 0.8
@@ -16979,6 +16979,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3039238999687063256, guid: 0fa357d8bc85b364494868be7c95682e,
+        type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -1.42
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

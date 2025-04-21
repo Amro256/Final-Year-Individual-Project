@@ -8,6 +8,8 @@ public class OptionsMenu : MonoBehaviour //THis has to be done via code
 {
     //Array to store the different tabs
     [SerializeField] GameObject[] tabs;
+    [SerializeField] GameObject[] tabPanels;
+    
     
     [SerializeField] int currentTab = 0;
 
@@ -76,12 +78,21 @@ public class OptionsMenu : MonoBehaviour //THis has to be done via code
                     //call the selected tab below
                     //SelectedTab(buttonTab);
 
+                    //Show the panel for the selected tab
+                    tabPanels[i].SetActive(true);
+
                     //Set the selected tab by telling the event system which one it should be set to
                     EventSystem.current.SetSelectedGameObject(buttonTab.gameObject);
+
+                    
                 }
                 else
                 {
                     //unSelectedTab(buttonTab);
+
+                    //Deactivate the others
+                    tabPanels[i].SetActive(false);
+                    
                 }
             }
         }

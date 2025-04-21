@@ -50,12 +50,13 @@ public class MainMenuManager : MonoBehaviour
     {
         //Enable the Main Menu and disable the Start screen
         startScreenCanvas.SetActive(false);
-        StartCoroutine(delayMainMenu());
+        mainMenuCanvas.SetActive(true);
+        //StartCoroutine(delayMainMenu());
     }
 
-    private IEnumerator delayMainMenu()
-    {
-        yield return new WaitForSeconds(1.5f);
-        mainMenuCanvas.SetActive(true);
-    }
+    // private IEnumerator delayMainMenu()
+    // {
+    //     yield return new WaitForSeconds(1.5f);
+    //     mainMenuCanvas.SetActive(true);
+    // }
 }

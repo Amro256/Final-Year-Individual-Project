@@ -811,7 +811,7 @@
                 {
                     "name": "",
                     "id": "d5182c4f-f78e-4ee4-954e-51cd5fee071d",
-                    "path": "<Keyboard>/enter",
+                    "path": "<Keyboard>/backspace",
                     "interactions": "",
                     "processors": "",
                     "groups": "Keyboard&Mouse",

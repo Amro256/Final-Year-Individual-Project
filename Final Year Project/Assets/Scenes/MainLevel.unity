@@ -3102,7 +3102,7 @@ MonoBehaviour:
       m_PreInfinity: 2
       m_PostInfinity: 2
       m_RotationOrder: 4
-  m_CustomBlends: {fileID: 11400000, guid: e11db5283a4666c4fb615e662c787751, type: 2}
+  m_CustomBlends: {fileID: 0}
   m_CameraCutEvent:
     m_PersistentCalls:
       m_Calls: []
@@ -3283,6 +3283,21 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   mainCam: {fileID: 12392138}
   cam2D: {fileID: 517586682}
+  transitionTrigger:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 1856202032}
+        m_TargetAssemblyTypeName: GameManager, Assembly-CSharp
+        m_MethodName: 
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
   Switch2D: 1
   SwitchSFX: {fileID: 8300000, guid: 80be23d03ac9e02449cac73539e99d6c, type: 3}
 --- !u!1 &382916793
@@ -4034,7 +4049,7 @@ MonoBehaviour:
     type: 3}
   m_PrefabInstance: {fileID: 316981293}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
+  m_GameObject: {fileID: 1856202032}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: c2da04f154b97a0408b31f87da38c1e7, type: 3}
@@ -5114,6 +5129,21 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   mainCam: {fileID: 12392138}
   cam2D: {fileID: 517586682}
+  transitionTrigger:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 1856202032}
+        m_TargetAssemblyTypeName: 
+        m_MethodName: 
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: 
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
   Switch2D: 1
   SwitchSFX: {fileID: 8300000, guid: 80be23d03ac9e02449cac73539e99d6c, type: 3}
 --- !u!65 &626616966
@@ -6653,6 +6683,21 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   mainCam: {fileID: 12392138}
   cam2D: {fileID: 517586682}
+  transitionTrigger:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 1856202032}
+        m_TargetAssemblyTypeName: GameManager, Assembly-CSharp
+        m_MethodName: 
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
   Switch2D: 0
   SwitchSFX: {fileID: 8300000, guid: 80be23d03ac9e02449cac73539e99d6c, type: 3}
 --- !u!65 &729874168
@@ -12019,6 +12064,21 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   mainCam: {fileID: 12392138}
   cam2D: {fileID: 517586682}
+  transitionTrigger:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 1856202032}
+        m_TargetAssemblyTypeName: 
+        m_MethodName: 
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: 
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
   Switch2D: 0
   SwitchSFX: {fileID: 8300000, guid: 80be23d03ac9e02449cac73539e99d6c, type: 3}
 --- !u!65 &1518223577
@@ -14864,6 +14924,12 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 615a3b87b63f05247a9e124216743fb7, type: 3}
+--- !u!1 &1856202032 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 4751041956237577317, guid: 414521968d3f86949a81b949a55d0390,
+    type: 3}
+  m_PrefabInstance: {fileID: 316981293}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &1862645297
 PrefabInstance:
   m_ObjectHideFlags: 0

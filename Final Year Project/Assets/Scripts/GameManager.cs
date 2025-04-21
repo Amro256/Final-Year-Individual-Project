@@ -20,7 +20,7 @@ public class GameManager : MonoBehaviour
     
     //Variables
     [SerializeField] Animator transitionAnim; //Reference to the animator of the circle 
-    [SerializeField] Animator modeTransitionAnim; // Refernece to the animator of the square
+    [SerializeField] Animator BlackScreenTransitionAnim; // Refernece to the animator of the square
     [SerializeField] private TMP_Text countDownText;
     [SerializeField] string sceneName; //Using a string to change scene so it's not hard coded and it'll be easier to switch while test
     [SerializeField] GameObject modeTransitionCanvas;
@@ -58,7 +58,6 @@ public class GameManager : MonoBehaviour
 
     }
 
-
     public void UpdatePostion(Vector3 position)
     {
         lastcheckpoint = position;
@@ -77,15 +76,21 @@ public class GameManager : MonoBehaviour
         
     }
 
-    //Use an enumerator to fake the transition
-    public IEnumerator modeTransition()
+    //------------------------------------------------TRANSITIONS FUNCTIONS------------------------------------------------------------------------------//
+
+    //Use an enumerator to fake a screen transition
+    public IEnumerator BlackScreenTransition()
     {
         modeTransitionCanvas.SetActive(true);
         yield return new WaitForSeconds(1f);
-        modeTransitionAnim.SetTrigger("IsTransitioning");
+        BlackScreenTransitionAnim.SetTrigger("IsTransitioning");
         yield return new WaitForSeconds(3f);
-        modeTransitionCanvas.SetActive(false);
-        
+        modeTransitionCanvas.SetActive(false);   
+    }
+
+    public void StartBlackScreenAnim() //public method so the transition is selectable in the inspector 
+    {
+        StartCoroutine(BlackScreenTransition());
     }
 
     public IEnumerator CountdownTransition()
@@ -96,27 +101,30 @@ public class GameManager : MonoBehaviour
         Debug.Log("Player Input taken away");
 
         //for loop that will countdown to 0
-
         for(int i = 3; i >= 0; i--) // "--" is using as the coutndown will be decrementing
         {
             countDownText.text = i.ToString();
             yield return new WaitForSeconds(1f);
         }
-        
         countDownText.text = "";
         playerMovement.enabled = true;
         playerinput.enabled = true;
         //Debug.Log("Player regained input!"); - Used for testing
     }
 
+     public void StartCountdownAnim() //public method so the transition is selectable in the inspector 
+    {
+        StartCoroutine(CountdownTransition());
+    }
+
+    //------------------------------------------------PAUSE MENU FUNCTIONS------------------------------------------------------------------------------//
+
     public void StartGame()
     {
         StartCoroutine(LoadScene()); // This works but will need some adjuments
     }
 
-
-    //------------------------------------------------PAUSE MENU FUNCTIONS------------------------------------------------------------------------------//
-    public void RestartGame()
+        public void RestartGame()
     {
         SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
         Time.timeScale = 1f;
@@ -130,10 +138,7 @@ public class GameManager : MonoBehaviour
         {
             Time.timeScale = 0f;
             pauseMenuPanel.SetActive(true);
-            playerinput.SwitchCurrentActionMap("UI"); //Switch the UI action map - gives players the actions for UI navigation
-
-            //Ensure that focus is not lost when the player click off (or when clicking on the scene / game in engine)
-        
+            playerinput.SwitchCurrentActionMap("UI"); //Switch the UI action map - gives players the actions for UI navigation        
         }
         else
         {

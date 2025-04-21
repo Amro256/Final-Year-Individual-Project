@@ -19,17 +19,21 @@ public class GameManager : MonoBehaviour
     private Vector3 lastcheckpoint;
     
     //Variables
-    [SerializeField] Animator transitionAnim; //Reference to the animator of the circle 
+    [Header("Transitions")]
+    [SerializeField] Animator transitionAnim; //Reference to the circle animator  
     [SerializeField] Animator BlackScreenTransitionAnim; // Refernece to the animator of the square
     [SerializeField] private TMP_Text countDownText;
-    [SerializeField] string sceneName; //Using a string to change scene so it's not hard coded and it'll be easier to switch while test
-    [SerializeField] GameObject modeTransitionCanvas;
-    
 
-    bool ispaused = false; //Bool to check if the game is paused
+    [Header("Loading Scenes")]
+    [SerializeField] string sceneName; //Using a string to change scene so it's not hard coded and it'll be easier to switch while testing
+
+
+    [Header("UI Canvases")]
+    [SerializeField] GameObject modeTransitionCanvas;
     [SerializeField] GameObject pauseMenuPanel;
     
-    
+    bool ispaused = false; //Bool to check if the game is paused
+   
     void Awake() //Checks if there is another Game Manager Instance in the scene
     {
         if(instance == null)
@@ -43,6 +47,7 @@ public class GameManager : MonoBehaviour
         
     }
 
+   
     // Start is called before the first frame update
     void Start()
     {
@@ -122,6 +127,8 @@ public class GameManager : MonoBehaviour
     public void StartGame()
     {
         StartCoroutine(LoadScene()); // This works but will need some adjuments
+
+        //Disable a main menu panel here
     }
 
         public void RestartGame()

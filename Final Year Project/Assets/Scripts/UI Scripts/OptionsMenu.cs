@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.UI; //Namespace for the next input system
-
+using UnityEngine.EventSystems;
 public class OptionsMenu : MonoBehaviour //THis has to be done via code
 {
     //Array to store the different tabs
@@ -11,48 +11,32 @@ public class OptionsMenu : MonoBehaviour //THis has to be done via code
     
     [SerializeField] int currentTab = 0;
 
-    [SerializeField ]InputActionAsset InputActions; //Reference to the InputAction asset
+    [SerializeField]InputActionAsset InputActions; //Reference to the InputAction asset
     private InputAction switchTabAction; //Will be used to find the exact action map with the triggers binded to them
+
+    //private PlayerInput playerinput; //Reference to the playerinput
+    
  
     private void Awake()
     {
-        if(InputActions != null)
-        {
-            //Find the switch tab action within the asset
-            var tabSwitchMap = InputActions.FindActionMap("Tab Switch");
-            
-            //Check if the tabSwitch is empty, if not, find the action for switching 
-            if(tabSwitchMap != null)
-            {
-                switchTabAction = tabSwitchMap.FindAction("Tab Navigate");
-            }
-
-            //Check switch tab is found then make it sub to the tab switch event 
-            if(switchTabAction != null)
-            {
-                //sub to event 
-                switchTabAction.performed += TabSwitch;
-            }
-            else
-            {
-                Debug.Log("Error");
-            }
-        }
+        switchTabAction = InputActions.FindAction("TabNavigate");
     }
     private void OnEnable() 
-    {
-       
+    { 
+        switchTabAction.Enable();
+        switchTabAction.performed += TabSwitch;
     }
 
     void OnDisable()
-    {
-       
+    {  
+       switchTabAction.performed -= TabSwitch;
+       switchTabAction.Disable();
     }
 
-
-    private void TabSwitch(InputAction.CallbackContext context)
+    void TabSwitch(InputAction.CallbackContext context)
     {
         float input = context.ReadValue<float>(); // Since the triggers are buttons, this has be read as a float otherwise Unity will throw an error
+        Debug.Log("Tab Switch Input: " + input);
 
         if(input < 0) 
         {
@@ -79,7 +63,7 @@ public class OptionsMenu : MonoBehaviour //THis has to be done via code
     {
         for(int i = 0; i < tabs.Length; i++)
         {
-            //tabs[i].SetActive(i  == currentTab); //This disables all the tabs which is not what I want
+            tabs[i].SetActive(true); //Keeps all tabs visable. Selected colours can be changed in the inspector
 
             //Grab a reference to the UI button component
 
@@ -90,51 +74,18 @@ public class OptionsMenu : MonoBehaviour //THis has to be done via code
                 if(i == currentTab)
                 {
                     //call the selected tab below
-                    SelectedTab(buttonTab);
+                    //SelectedTab(buttonTab);
+
+                    //Set the selected tab by telling the event system which one it should be set to
+                    EventSystem.current.SetSelectedGameObject(buttonTab.gameObject);
                 }
                 else
                 {
-                    unSelectedTab(buttonTab);
+                    //unSelectedTab(buttonTab);
                 }
             }
         }
     }
 
-    //Method to handle selecting colours
-    private void SelectedTab(UnityEngine.UI.Button tabButton) //This method will handle the colour when a tab is selected      
-    {
-        ColorBlock colours =  tabButton.colors;
-        colours.normalColor = Color.green;
-
-        //Change the colour of the tab when selected
-
-        colours.selectedColor = Color.green;
-
-        //Apply the colour to the tab
-
-        tabButton.colors = colours;
-
-        Debug.Log("Tab highlighted with selected color.");
-    }
-
-
-    //Method to handle unselected tabs
-    private void unSelectedTab(UnityEngine.UI.Button tabButton)
-    {
-         ColorBlock colours =  tabButton.colors;
-           colours.normalColor = Color.white;
-
-        //Change the colour of the tab when selected
-
-        colours.selectedColor = Color.white;
-
-        //Apply the colour to the tab
-
-        tabButton.colors = colours;
-        
-
-
-    Debug.Log("Tab reset to default color.");
-    }
 
 }

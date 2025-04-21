@@ -185,7 +185,7 @@ MonoBehaviour:
     m_NormalColor: {r: 0, g: 0.30588236, b: 0.59607846, a: 1}
     m_HighlightedColor: {r: 1, g: 1, b: 1, a: 1}
     m_PressedColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 1}
-    m_SelectedColor: {r: 0.5898089, g: 0.96540874, b: 0.43564826, a: 1}
+    m_SelectedColor: {r: 1, g: 1, b: 1, a: 1}
     m_DisabledColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 0.5019608}
     m_ColorMultiplier: 1
     m_FadeDuration: 0.1
@@ -253,6 +253,7 @@ GameObject:
   m_Component:
   - component: {fileID: 67042935}
   - component: {fileID: 67042934}
+  - component: {fileID: 67042936}
   m_Layer: 0
   m_Name: Tab Management (Empty Game Object)
   m_TagString: Untagged
@@ -294,6 +295,109 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &67042936
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 67042933}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 62899f850307741f2a39c98a8b639597, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Actions: {fileID: -944628639613478452, guid: 7c7d75b5e933ee54f908ad155c7a7c23,
+    type: 3}
+  m_NotificationBehavior: 2
+  m_UIInputModule: {fileID: 0}
+  m_DeviceLostEvent:
+    m_PersistentCalls:
+      m_Calls: []
+  m_DeviceRegainedEvent:
+    m_PersistentCalls:
+      m_Calls: []
+  m_ControlsChangedEvent:
+    m_PersistentCalls:
+      m_Calls: []
+  m_ActionEvents:
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 2cff72ba-50ec-4e60-982f-5358c70a7fb8
+    m_ActionName: Player/Move[/DualSenseGamepadHID/leftStick,/Keyboard/w,/Keyboard/upArrow,/Keyboard/s,/Keyboard/downArrow,/Keyboard/a,/Keyboard/leftArrow,/Keyboard/d,/Keyboard/rightArrow]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 91425621-1be0-4ac9-b69c-2763627519b2
+    m_ActionName: Player/Look[/DualSenseGamepadHID/rightStick,/Mouse/delta]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: bbd49155-d017-4362-ad34-59bd6502b8bb
+    m_ActionName: Player/Fire[/DualSenseGamepadHID/rightTrigger,/Mouse/leftButton]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 032238b9-3c86-43c9-9b9f-865616829c0e
+    m_ActionName: Player/Jump[/Keyboard/space,/DualSenseGamepadHID/buttonSouth]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: f92c6e8e-5370-4e9f-bc74-10f54293d83d
+    m_ActionName: Player/Sprint[/DualSenseGamepadHID/buttonWest,/Keyboard/leftShift]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 99097464-dea6-4339-860f-4ac8b15892d1
+    m_ActionName: UI/Navigate[/DualSenseGamepadHID/leftStick/up,/DualSenseGamepadHID/leftStick/down,/DualSenseGamepadHID/leftStick/left,/DualSenseGamepadHID/leftStick/right,/DualSenseGamepadHID/dpad,/Keyboard/w,/Keyboard/upArrow,/Keyboard/s,/Keyboard/downArrow,/Keyboard/a,/Keyboard/leftArrow,/Keyboard/d,/Keyboard/rightArrow]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 3d20ded7-fb0b-4d8e-af3e-44c7c26446fa
+    m_ActionName: UI/Submit[/Keyboard/enter,/DualSenseGamepadHID/buttonSouth]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: f51c2edf-d279-463e-b8f3-e4d9d84a5304
+    m_ActionName: UI/Cancel[/Keyboard/escape,/DualSenseGamepadHID/buttonEast]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 15bcb47c-7947-4c0c-839d-1872fa732e18
+    m_ActionName: UI/Point[/Mouse/position]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 3607059a-f4d4-401d-b597-5b9bd3b7fbaf
+    m_ActionName: UI/Click[/Mouse/leftButton]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 0ec830bc-6a41-44e3-8fbf-2190feda2801
+    m_ActionName: UI/ScrollWheel[/Mouse/scroll]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 962530ce-d3c5-4753-8179-246d58e16f89
+    m_ActionName: UI/MiddleClick[/Mouse/middleButton]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: a191d46f-f904-4c75-a880-aaa109ea4484
+    m_ActionName: UI/RightClick[/Mouse/rightButton]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 895bf392-f950-423c-b36b-7748bfe081fd
+    m_ActionName: UI/TrackedDevicePosition
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: f8112a9e-57ef-49a7-864e-dffc35ca0126
+    m_ActionName: UI/TrackedDeviceOrientation
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 2e808e15-1713-47cc-afec-c249024e5777
+    m_ActionName: UI/Title Screen[/Keyboard/backspace,/DualSenseGamepadHID/touchpadButton]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 8a3da248-141a-41db-b4d1-deccc7567d8f
+    m_ActionName: Tab Switch/Tab Navigate[/DualSenseGamepadHID/leftShoulder,/DualSenseGamepadHID/rightShoulder,/Keyboard/q,/Keyboard/e]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: f0f921fe-11c4-4694-acab-317c1ba2ac66
+    m_ActionName: Pause/Escape[/Keyboard/escape,/DualSenseGamepadHID/start]
+  m_NeverAutoSwitchControlSchemes: 0
+  m_DefaultControlScheme: 
+  m_DefaultActionMap: Tab Switch
+  m_SplitScreenIndex: -1
+  m_Camera: {fileID: 0}
 --- !u!1 &229862568
 GameObject:
   m_ObjectHideFlags: 0
@@ -1078,7 +1182,7 @@ MonoBehaviour:
     type: 3}
   m_PointAction: {fileID: -7015559349348188261, guid: 7c7d75b5e933ee54f908ad155c7a7c23,
     type: 3}
-  m_MoveAction: {fileID: -5073567261742242948, guid: 7c7d75b5e933ee54f908ad155c7a7c23,
+  m_MoveAction: {fileID: 5770670405241043667, guid: 7c7d75b5e933ee54f908ad155c7a7c23,
     type: 3}
   m_SubmitAction: {fileID: 3934245797371241679, guid: 7c7d75b5e933ee54f908ad155c7a7c23,
     type: 3}
@@ -1726,7 +1830,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1390354310
 RectTransform:
   m_ObjectHideFlags: 0
@@ -1939,7 +2043,7 @@ RectTransform:
   m_Father: {fileID: 1295703522}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0, y: 0}
+  m_AnchorMax: {x: 0, y: 1}
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 20, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
@@ -2264,7 +2368,7 @@ RectTransform:
   m_Father: {fileID: 587759838}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0, y: 0}
+  m_AnchorMax: {x: 0, y: 1}
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 10, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
@@ -2431,7 +2535,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1969410884
 RectTransform:
   m_ObjectHideFlags: 0

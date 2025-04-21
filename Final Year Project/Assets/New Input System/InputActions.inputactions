@@ -837,24 +837,24 @@
             "id": "96606640-15c6-40df-999a-d75f4310a27b",
             "actions": [
                 {
-                    "name": "Tab Navigate",
-                    "type": "Button",
+                    "name": "TabNavigate",
+                    "type": "Value",
                     "id": "8a3da248-141a-41db-b4d1-deccc7567d8f",
-                    "expectedControlType": "Button",
+                    "expectedControlType": "Axis",
                     "processors": "",
                     "interactions": "",
-                    "initialStateCheck": false
+                    "initialStateCheck": true
                 }
             ],
             "bindings": [
                 {
-                    "name": "1D Axis",
+                    "name": "1D Axis (Gamepad)",
                     "id": "090176fa-f297-46c1-a6ba-d97d4245f4b9",
                     "path": "1DAxis",
                     "interactions": "",
                     "processors": "",
                     "groups": "",
-                    "action": "Tab Navigate",
+                    "action": "TabNavigate",
                     "isComposite": true,
                     "isPartOfComposite": false
                 },
@@ -865,7 +865,7 @@
                     "interactions": "",
                     "processors": "",
                     "groups": "Gamepad",
-                    "action": "Tab Navigate",
+                    "action": "TabNavigate",
                     "isComposite": false,
                     "isPartOfComposite": true
                 },
@@ -876,7 +876,40 @@
                     "interactions": "",
                     "processors": "",
                     "groups": "Gamepad",
-                    "action": "Tab Navigate",
+                    "action": "TabNavigate",
+                    "isComposite": false,
+                    "isPartOfComposite": true
+                },
+                {
+                    "name": "1D Axis (Keyboard)",
+                    "id": "64f09a31-60dd-41ee-970d-2ac4922355f4",
+                    "path": "1DAxis",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "TabNavigate",
+                    "isComposite": true,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "negative",
+                    "id": "f1c0cf46-562d-438c-8be1-cff715ec196e",
+                    "path": "<Keyboard>/q",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Keyboard&Mouse",
+                    "action": "TabNavigate",
+                    "isComposite": false,
+                    "isPartOfComposite": true
+                },
+                {
+                    "name": "positive",
+                    "id": "e07d850b-5c58-4571-ab68-b382edc1b194",
+                    "path": "<Keyboard>/e",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Keyboard&Mouse",
+                    "action": "TabNavigate",
                     "isComposite": false,
                     "isPartOfComposite": true
                 }

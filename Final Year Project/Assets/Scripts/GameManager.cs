@@ -6,35 +6,30 @@ using UnityEngine.InputSystem;
 using UnityEngine.SceneManagement;
 using TMPro;
 using System.Linq;
+using UnityEngine.EventSystems;
 
 public class GameManager : MonoBehaviour
 {
     public static GameManager instance; //Making this script a singleton
+
+    //Private Variables
     private PlayerMovement playerMovement; //Private reference to the player movement script
     private PlayerInput playerinput;
     private InputAction pausing;
     private Vector3 lastcheckpoint;
     
-    //variables
+    //Variables
     [SerializeField] Animator transitionAnim; //Reference to the animator of the circle 
     [SerializeField] Animator modeTransitionAnim; // Refernece to the animator of the square
-    [SerializeField] TMP_Text countDownText;
+    [SerializeField] private TMP_Text countDownText;
     [SerializeField] string sceneName; //Using a string to change scene so it's not hard coded and it'll be easier to switch while test
     [SerializeField] GameObject modeTransitionCanvas;
+    
 
     bool ispaused = false; //Bool to check if the game is paused
     [SerializeField] GameObject pauseMenuPanel;
     
-    //A way to track each transition and their usuage
-    private Dictionary<int,int> transitionUsed = new Dictionary<int, int>
-    {
-        {0,0},
-        {1,0},
-        {2,0}
-    };
     
-    
-   
     void Awake() //Checks if there is another Game Manager Instance in the scene
     {
         if(instance == null)
@@ -111,15 +106,16 @@ public class GameManager : MonoBehaviour
         countDownText.text = "";
         playerMovement.enabled = true;
         playerinput.enabled = true;
-        Debug.Log("Player regained input!");
-    
+        //Debug.Log("Player regained input!"); - Used for testing
     }
 
     public void StartGame()
     {
-        StartCoroutine(LoadScene()); // - This works but will need some adjuments
+        StartCoroutine(LoadScene()); // This works but will need some adjuments
     }
 
+
+    //------------------------------------------------PAUSE MENU FUNCTIONS------------------------------------------------------------------------------//
     public void RestartGame()
     {
         SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
@@ -134,13 +130,16 @@ public class GameManager : MonoBehaviour
         {
             Time.timeScale = 0f;
             pauseMenuPanel.SetActive(true);
-            playerinput.SwitchCurrentActionMap("UI");
+            playerinput.SwitchCurrentActionMap("UI"); //Switch the UI action map - gives players the actions for UI navigation
+
+            //Ensure that focus is not lost when the player click off (or when clicking on the scene / game in engine)
+        
         }
         else
         {
             Time.timeScale = 1f;
             pauseMenuPanel.SetActive(false);
-            playerinput.SwitchCurrentActionMap("Player");
+            playerinput.SwitchCurrentActionMap("Player"); //Switch back to the player action map - gives player regular controls
         }
     }
 
@@ -148,47 +147,5 @@ public class GameManager : MonoBehaviour
     {
         Application.Quit();
         Debug.Log("Quit game");
-    }
-
-    //Method to randomise the transitions 
-    public IEnumerator RandmoiseTransition()
-    {
-        //Randmoise the transitions between 0-3
-        int randomTransition = UseLeastedTransition();
-
-        //Add the transition that has been used to the dictionary
-        transitionUsed[randomTransition]++; 
-
-        //Switch Statement
-
-        switch(randomTransition)
-        {
-            case 0:
-            yield return StartCoroutine(modeTransition());
-            break;
-            case 1:
-            yield return StartCoroutine(CountdownTransition());
-            break;
-            //Add third here
-        }
-
-        //Debug to test
-        Debug.Log($"Transition {randomTransition} used. Counts: {string.Join(", ", transitionUsed.Select(kv => $"{kv.Key}: {kv.Value}"))}");
-    }
-
-    //Way to pick a transtion that has not been used
-
-    private int UseLeastedTransition()
-    {
-        //
-        int minTransitionUsed = transitionUsed.Values.Min(); //This will get the least used transition stored in the dictonary
-        //this is getting the transitions that have been used the least
-
-        //I'll use that to store it in a list 
-        List<int> leastUsedTrasition = transitionUsed.Where(KeyValuePair => KeyValuePair.Value == minTransitionUsed).Select(KeyValuePair => KeyValuePair.Key).ToList();
-
-        //Then pick a random transtion out of the least used one
-
-        return leastUsedTrasition[Random.Range(0, leastUsedTrasition.Count)];
     }
 }

@@ -6,11 +6,13 @@ using System;
 
 public class AnimationEventHandler : MonoBehaviour
 {
+    //References / Event Actions
     private PlayerMovement playercontrols;
     private PlayerInput playerinput;
 
     public static event Action animationPlay;
     public static event Action animationFinish;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -24,12 +26,7 @@ public class AnimationEventHandler : MonoBehaviour
         }       
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
-
+    //Other scripts will be able to subscribe to this
     private void OnAnimationStart()
     {
         playercontrols.enabled = false;

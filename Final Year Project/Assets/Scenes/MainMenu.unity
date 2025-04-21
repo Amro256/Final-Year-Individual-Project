@@ -3487,6 +3487,8 @@ MonoBehaviour:
   startScreenCanvas: {fileID: 412043184}
   mainMenuCanvas: {fileID: 703878895}
   creditsCanvas: {fileID: 1145104438}
+  mainMenuStartButton: {fileID: 1874349465}
+  creditMenuBackButton: {fileID: 149817421}
 --- !u!114 &1913895876
 MonoBehaviour:
   m_ObjectHideFlags: 0

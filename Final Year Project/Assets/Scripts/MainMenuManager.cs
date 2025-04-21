@@ -2,6 +2,8 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem; //Namespace for the next input system
+using UnityEngine.Events;
+using UnityEngine.EventSystems; //This is to update Unity's eventSystem to tell it what element to select 
 
 public class MainMenuManager : MonoBehaviour
 {
@@ -15,6 +17,11 @@ public class MainMenuManager : MonoBehaviour
     [SerializeField] GameObject startScreenCanvas; //Reference to the start screen canvas
     [SerializeField] GameObject mainMenuCanvas; //Referennce to the Main Menu Canvas
     [SerializeField]  GameObject creditsCanvas;
+
+    [Header("UI Buttons")]
+    [SerializeField] GameObject mainMenuStartButton;
+    [SerializeField] GameObject creditMenuBackButton;
+
 
     void Awake()
     {
@@ -61,11 +68,16 @@ public class MainMenuManager : MonoBehaviour
     {
         creditsCanvas.SetActive(true);
         mainMenuCanvas.SetActive(false);
+
+        //Tell the EventSystem to select the "Back" button
+        EventSystem.current.SetSelectedGameObject(creditMenuBackButton);
     }
 
     public void ReturnToMainMenu()
     {
         mainMenuCanvas.SetActive(true);
         creditsCanvas.SetActive(false);
+
+        EventSystem.current.SetSelectedGameObject(mainMenuStartButton);
     }
 }

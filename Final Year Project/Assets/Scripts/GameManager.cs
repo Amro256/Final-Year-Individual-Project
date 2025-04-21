@@ -17,6 +17,7 @@ public class GameManager : MonoBehaviour
     private PlayerInput playerinput;
     private InputAction pausing;
     private Vector3 lastcheckpoint;
+    private GameObject mainMenuCanv;
     
     //Variables
     [Header("Transitions")]
@@ -25,7 +26,7 @@ public class GameManager : MonoBehaviour
     [SerializeField] private TMP_Text countDownText;
 
     [Header("Loading Scenes")]
-    [SerializeField] string sceneName; //Using a string to change scene so it's not hard coded and it'll be easier to switch while testing
+    //[SerializeField] string sceneName; //Using a string to change scene so it's not hard coded and it'll be easier to switch while testing
 
 
     [Header("UI Canvases")]
@@ -73,7 +74,7 @@ public class GameManager : MonoBehaviour
         return lastcheckpoint;
     }
 
-    public IEnumerator LoadScene()
+    public IEnumerator LoadSceneAnim(string sceneName)
     {
         transitionAnim.SetTrigger("isTrigger");
         yield return new WaitForSeconds(1.5f);
@@ -122,14 +123,34 @@ public class GameManager : MonoBehaviour
         StartCoroutine(CountdownTransition());
     }
 
-    //------------------------------------------------PAUSE MENU FUNCTIONS------------------------------------------------------------------------------//
+    //------------------------------------------------START MENU FUNCTIONS------------------------------------------------------------------------------//
 
     public void StartGame()
     {
-        StartCoroutine(LoadScene()); // This works but will need some adjuments
+        StartCoroutine(LoadSceneAnim("MainLevel")); // This works but will need some adjuments
 
-        //Disable a main menu panel here
+        //Disable a main menu panel 
+        mainMenuCanv = GameObject.Find("Canvas (Game Options)");
+        
+        if(mainMenuCanv != null)
+        {
+            mainMenuCanv.SetActive(false);
+        }
     }
+
+    public void goToOptionsMenu()
+    {
+        StartCoroutine(LoadSceneAnim("OptionsMenu"));
+
+        mainMenuCanv = GameObject.Find("Canvas (Game Options)");
+        
+        if(mainMenuCanv != null)
+        {
+            mainMenuCanv.SetActive(false);
+        }
+    }
+
+    //--------------------------------------------------------------- PAUSE MENU FUNCTIONS ----------------------------------------//
 
         public void RestartGame()
     {

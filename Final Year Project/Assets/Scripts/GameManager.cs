@@ -79,6 +79,7 @@ public class GameManager : MonoBehaviour
         transitionAnim.SetTrigger("isTrigger");
         yield return new WaitForSeconds(1.5f);
         SceneManager.LoadSceneAsync(sceneName);
+        FindObjectOfType<GameSettings>().LoadAudioData();
         
     }
 
@@ -148,6 +149,9 @@ public class GameManager : MonoBehaviour
         {
             mainMenuCanv.SetActive(false);
         }
+
+        //Call the load Audio Data here
+        FindAnyObjectByType<GameSettings>().LoadAudioData();
     }
 
     //--------------------------------------------------------------- PAUSE MENU FUNCTIONS ----------------------------------------//

@@ -4,20 +4,17 @@ using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.UI; //Namespace for the next input system
 using UnityEngine.EventSystems;
-public class OptionsMenu : MonoBehaviour //THis has to be done via code
+public class OptionsTabs : MonoBehaviour //THis has to be done via code
 {
     //Array to store the different tabs
     [SerializeField] GameObject[] tabs;
     [SerializeField] GameObject[] tabPanels;
     
     
-    [SerializeField] int currentTab = 0;
+    private int currentTab = 0; //This was exposed in the inspector for testing purposes. Now set to private as it works
 
-    [SerializeField]InputActionAsset InputActions; //Reference to the InputAction asset
+    [SerializeField] InputActionAsset InputActions; //Reference to the InputAction asset
     private InputAction switchTabAction; //Will be used to find the exact action map with the triggers binded to them
-
-    //private PlayerInput playerinput; //Reference to the playerinput
-    
  
     private void Awake()
     {
@@ -42,14 +39,14 @@ public class OptionsMenu : MonoBehaviour //THis has to be done via code
 
         if(input < 0) 
         {
-            Debug.Log(input);
-            Debug.Log("Left Shoulder Button Pressed");
+            //Debug.Log(input);
+            //Debug.Log("Left Shoulder Button Pressed");
             currentTab--;
         }
         else if (input > 0)//Right Shoulder Button
         {
-            Debug.Log(input);
-            Debug.Log("Right Should Button Pressed");
+            //Debug.Log(input);
+            //Debug.Log("Right Should Button Pressed");
             currentTab++;
         }
 
@@ -82,9 +79,7 @@ public class OptionsMenu : MonoBehaviour //THis has to be done via code
                     tabPanels[i].SetActive(true);
 
                     //Set the selected tab by telling the event system which one it should be set to
-                    EventSystem.current.SetSelectedGameObject(buttonTab.gameObject);
-
-                    
+                    EventSystem.current.SetSelectedGameObject(buttonTab.gameObject);   
                 }
                 else
                 {
